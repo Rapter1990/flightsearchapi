@@ -21,7 +21,6 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Document(collection = "user-collection")
 public class UserEntity extends BaseEntity {
 

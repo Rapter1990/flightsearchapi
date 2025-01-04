@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
                         url = "https://github.com/Rapter1990/flightsearchapi"
                 ),
                 description = "Case Study - Flight Search Api" +
-                        "(Case Study - To Do List Example (Java 21, Spring Boot, Couchbase, JUnit, Spring Security, JWT, Docker, Kubernetes, Prometheus, Grafana, Github Actions (CI/CD) ) ",
+                        " (Java 21, Spring Boot, Mongodb, JUnit, Spring Security, JWT, Docker, Kubernetes, Prometheus, Grafana, Github Actions (CI/CD) ) ",
                 title = "flightsearchapi",
                 version = "1.0.0"
         )

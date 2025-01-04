@@ -11,3 +11,9 @@ spring:
       database: ${MONGO_DB_NAME:flightdatabase}
   application:
     name: flightsearchapi
+
+# SWAGGER
+springdoc:
+  api-docs:
+    enabled: true
+  show-actuator: true
