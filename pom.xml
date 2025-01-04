@@ -71,6 +71,21 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
+		<!-- BOUNCY CASTLE DEPENDENCY -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpkix-jdk18on</artifactId>
+			<version>${bouncycastle.version}</version>
+		</dependency>
+		<!-- BOUNCY CASTLE DEPENDENCY -->
+
+		<!-- APACHE COMMONS DEPENDENCY -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.14.0</version>
+		</dependency>
+
 		<!-- SPRING SECURITY DEPENDENCY -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
