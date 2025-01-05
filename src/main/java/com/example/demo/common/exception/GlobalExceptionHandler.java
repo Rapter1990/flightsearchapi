@@ -2,6 +2,8 @@ package com.example.demo.common.exception;
 
 import com.example.demo.auth.exception.*;
 import com.example.demo.common.model.CustomError;
+import com.example.demo.flight.exception.AirportNameAlreadyExistException;
+import com.example.demo.flight.exception.AirportNotFoundException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.validation.ConstraintViolationException;
@@ -262,6 +264,50 @@ class GlobalExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(customError, HttpStatus.UNAUTHORIZED);
+    }
+
+    /**
+     * Handles AirportNotFoundException, which is thrown when a requested airport cannot be found.
+     * The response contains the error message and a 404 NOT_FOUND status.
+     *
+     * @param ex The AirportNotFoundException that was thrown.
+     * @return ResponseEntity containing the custom error message and NOT_FOUND status.
+     */
+    @ExceptionHandler(AirportNotFoundException.class)
+    protected ResponseEntity<CustomError> handleAirportNotFoundException(final AirportNotFoundException ex) {
+
+        CustomError error = CustomError.builder()
+                .time(LocalDateTime.now())
+                .httpStatus(HttpStatus.NOT_FOUND)
+                .header(CustomError.Header.NOT_FOUND.getName())
+                .message(ex.getMessage())
+                .isSuccess(false)
+                .build();
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+
+    }
+
+    /**
+     * Handles AirportNameAlreadyExistException, which is thrown when an airport with the same name already exists.
+     * The response contains the error message and a custom status code provided by the exception.
+     *
+     * @param ex The AirportNameAlreadyExistException that was thrown.
+     * @return ResponseEntity containing the custom error message and the custom status code.
+     */
+    @ExceptionHandler(AirportNameAlreadyExistException.class)
+    protected ResponseEntity<CustomError> handleAirportNameAlreadyExistException(final AirportNameAlreadyExistException ex) {
+
+        CustomError error = CustomError.builder()
+                .time(LocalDateTime.now())
+                .httpStatus(AirportNameAlreadyExistException.STATUS)
+                .header(CustomError.Header.BAD_REQUEST.getName())
+                .message(ex.getMessage())
+                .isSuccess(false)
+                .build();
+
+        return new ResponseEntity<>(error, AirportNameAlreadyExistException.STATUS);
+
     }
 
 }
