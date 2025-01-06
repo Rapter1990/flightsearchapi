@@ -27,18 +27,18 @@ public class AirportController {
 
 
     /**
-     * Creates a new task and saves it to the database.
+     * Creates a new airport and saves it to the database.
      *
      * @param createAirportRequest the request body containing the details of the airport to be created.
-     *                             It must include valid airport name and city name.
+     *                             It must include a valid airport name and city name.
      * @return a {@link CustomResponse} containing the ID of the newly created airport.
      */
     @Operation(
-            summary = "Create a new task",
-            description = "Creates a new task and saves it to the database. Accessible by ADMIN only.",
+            summary = "Create a new airport",
+            description = "Creates a new airport and saves it to the database. Accessible by ADMIN only.",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Task successfully created"),
-                    @ApiResponse(responseCode = "400", description = "Invalid task details provided"),
+                    @ApiResponse(responseCode = "200", description = "Airport successfully created"),
+                    @ApiResponse(responseCode = "400", description = "Invalid airport details provided"),
                     @ApiResponse(responseCode = "401", description = "Unauthorized, authentication is required"),
                     @ApiResponse(responseCode = "403", description = "Access forbidden")
             }
