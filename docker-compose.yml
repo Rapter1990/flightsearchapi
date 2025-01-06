@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+
+  mongodb:
+    image: "mongo:latest"
+    container_name: mongo-container
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data_container:/data/db
+    networks:
+      - flightsearchapinetwork
+
+
+  flightsearchapi:
+    image: 'flightsearchapi:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flightsearchapi
+    restart: on-failure
+    env_file:
+      - .env  # Use the .env file for environment variables
+    ports:
+      - "1133:1133"
+    environment:
+      - server.port=1133
+      - spring.data.mongodb.host=mongodb
+      - spring.data.mongodb.port=${MONGO_DB_PORT}
+      - spring.data.mongodb.database=${MONGO_DB_NAME}
+    depends_on:
+      - mongodb
+    networks:
+      - flightsearchapinetwork
+
+volumes:
+  mongodb_data_container:
+
+networks:
+  flightsearchapinetwork:
