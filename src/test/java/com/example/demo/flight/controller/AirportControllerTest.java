@@ -29,7 +29,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
             AirportToAirportResponseMapper.initialize();
 
     @Test
-    void givenValidTaskRequestWithAdminCreate_whenCreateTask_thenSuccess() throws Exception{
+    void givenValidCreateAirportRequestByAdmin_whenCreateAirport_thenSuccess() throws Exception{
 
         // Given
         final CreateAirportRequest request = new CreateAirportRequestBuilder()
@@ -63,7 +63,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void givenValidTaskRequest_WhenWithUserCreate_ThenThrowUnAuthorizeException() throws Exception{
+    void givenValidCreateAirportRequest_WhenWithUserCreate_ThenThrowUnAuthorizeException() throws Exception{
 
         // Given
         final CreateAirportRequest request = new CreateAirportRequestBuilder()
@@ -85,7 +85,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void givenValidTaskRequest_whenForbiddenThroughUser_thenThrowForbidden() throws Exception {
+    void givenValidCreateAirportRequest_whenForbiddenThroughUser_thenThrowForbidden() throws Exception {
 
         // Given
         final CreateAirportRequest request = new CreateAirportRequestBuilder()
