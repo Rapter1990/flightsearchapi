@@ -18,10 +18,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit test class for {@link AirportCreateServiceImpl}.
+ * This class verifies the correctness of the business logic in {@link AirportCreateServiceImpl}.
+ */
 class AirportCreateServiceImplTest extends AbstractBaseServiceTest {
 
     @InjectMocks
-    private AirportCreateServiceImpl createService;
+    private AirportCreateServiceImpl airportCreateService;
 
     @Mock
     private AirportRepository airportRepository;
@@ -48,7 +52,7 @@ class AirportCreateServiceImplTest extends AbstractBaseServiceTest {
         when(airportRepository.save(any(AirportEntity.class))).thenReturn(mockAirportEntity);
 
         // Then
-        Airport response = createService.createAirport(request);
+        Airport response = airportCreateService.createAirport(request);
 
         assertEquals(mockAirport.getName(),response.getName());
 
@@ -69,7 +73,7 @@ class AirportCreateServiceImplTest extends AbstractBaseServiceTest {
         when(airportRepository.existsByName(request.getName())).thenReturn(true);
 
         // Then
-        assertThrows(AirportNameAlreadyExistException.class,()->createService.createAirport(request));
+        assertThrows(AirportNameAlreadyExistException.class,()-> airportCreateService.createAirport(request));
 
         // Verify
         verify(airportRepository,times(1)).existsByName(anyString());

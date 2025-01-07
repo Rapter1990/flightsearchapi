@@ -5,6 +5,7 @@ import com.example.demo.builder.CreateAirportRequestBuilder;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
 import com.example.demo.flight.service.airport.AirportCreateService;
+import com.example.demo.flight.service.airport.AirportReadService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,6 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit test class for {@link AirportServiceImpl}.
+ * This class verifies the correctness of the business logic in {@link AirportServiceImpl}.
+ */
 class AirportServiceImplTest extends AbstractBaseServiceTest {
 
     @InjectMocks
@@ -22,6 +27,9 @@ class AirportServiceImplTest extends AbstractBaseServiceTest {
 
     @Mock
     private AirportCreateService airportCreateService;
+
+    @Mock
+    private AirportReadService airportReadService;
 
     @Test
     void givenValidCreateAirportRequest_whenCreateAirport_thenReturnCreatedAirport() {
@@ -50,6 +58,31 @@ class AirportServiceImplTest extends AbstractBaseServiceTest {
         // Verify
         verify(airportCreateService, times(1)).createAirport(any(CreateAirportRequest.class));
 
+    }
+
+    @Test
+    void givenValidAirportId_whenGetAirportById_thenReturnAirport() {
+        // Given
+        String airportId = UUID.randomUUID().toString();
+        Airport expectedAirport = Airport.builder()
+                .id(airportId)
+                .name("Test Airport")
+                .cityName("Test City")
+                .build();
+
+        // When
+        when(airportReadService.getAirportById(airportId)).thenReturn(expectedAirport);
+
+        // Then
+        Airport result = airportService.getAirportById(airportId);
+
+        assertNotNull(result);
+        assertEquals(expectedAirport.getId(), result.getId());
+        assertEquals(expectedAirport.getName(), result.getName());
+        assertEquals(expectedAirport.getCityName(), result.getCityName());
+
+        // Verify
+        verify(airportReadService, times(1)).getAirportById(airportId);
     }
 
 }

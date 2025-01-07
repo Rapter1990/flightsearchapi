@@ -8,7 +8,7 @@ import java.util.UUID;
 
 /**
  * A builder class for creating instances of {@link UserEntity} with specific properties set.
- * This builder is intended for creating instances of {@link UserEntity} with admin-specific configurations.
+ * This builder is intended for creating instances of {@link UserEntity} with specific configurations.
  */
 public class AdminUserBuilder extends BaseBuilder<UserEntity> {
 

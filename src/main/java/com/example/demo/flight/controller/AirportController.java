@@ -3,6 +3,7 @@ package com.example.demo.flight.controller;
 import com.example.demo.common.model.dto.response.CustomResponse;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
+import com.example.demo.flight.model.dto.response.AirportResponse;
 import com.example.demo.flight.model.mapper.AirportToAirportResponseMapper;
 import com.example.demo.flight.service.airport.AirportService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.UUID;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +51,33 @@ public class AirportController {
         final Airport createdTask = airportService.createAirport(createAirportRequest);
 
         return CustomResponse.successOf(createdTask.getId());
+    }
+
+    /**
+     * Retrieves an airport by its ID.
+     *
+     * @param id the ID of the airport to be retrieved.
+     * @return a response containing the airport details.
+     */
+    @Operation(
+            summary = "Get airport by ID",
+            description = "Retrieves a airport by its ID. Accessible by both ADMIN and USER roles.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Airport successfully retrieved"),
+                    @ApiResponse(responseCode = "400", description = "Invalid airport details provided"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized, authentication is required"),
+                    @ApiResponse(responseCode = "403", description = "Access forbidden"),
+                    @ApiResponse(responseCode = "404", description = "Airport not found")
+            }
+    )
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    public CustomResponse<AirportResponse> getAirportById(@PathVariable @Valid @UUID final String id){
+        final Airport airport = airportService.getAirportById(id);
+
+        final AirportResponse response = airportToAirportResponseMapper.map(airport);
+
+        return CustomResponse.successOf(response);
     }
 
 }
