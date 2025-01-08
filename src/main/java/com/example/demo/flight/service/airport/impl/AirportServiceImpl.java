@@ -1,5 +1,7 @@
 package com.example.demo.flight.service.airport.impl;
 
+import com.example.demo.common.model.CustomPage;
+import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
 import com.example.demo.flight.service.airport.AirportCreateService;
@@ -39,5 +41,17 @@ public class AirportServiceImpl implements AirportService {
     public Airport getAirportById(String id) {
         return airportReadService.getAirportById(id);
     }
+
+    /**
+     * Retrieves all tasks with pagination support.
+     *
+     * @param customPagingRequest the request object containing paging parameters (e.g., page size, page number).
+     * @return a {@link CustomPage} of tasks, containing a list of tasks and pagination details.
+     */
+    @Override
+    public CustomPage<Airport> getAllAirports(CustomPagingRequest customPagingRequest) {
+        return airportReadService.getAllAirports(customPagingRequest);
+    }
+
 
 }

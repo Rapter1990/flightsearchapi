@@ -1,5 +1,7 @@
 package com.example.demo.flight.service.airport;
 
+import com.example.demo.common.model.CustomPage;
+import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
 
@@ -23,5 +25,13 @@ public interface AirportService {
      * @return the {@link Airport} entity with the specified ID.
      */
     Airport getAirportById(final String id);
+
+    /**
+     * Retrieves all tasks with pagination support.
+     *
+     * @param customPagingRequest the request object containing paging parameters (e.g., page size, page number).
+     * @return a {@link CustomPage} of tasks, containing a list of tasks and pagination details.
+     */
+    CustomPage<Airport> getAllAirports(final CustomPagingRequest customPagingRequest);
 
 }

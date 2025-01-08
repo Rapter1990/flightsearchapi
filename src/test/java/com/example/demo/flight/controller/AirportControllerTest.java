@@ -2,14 +2,24 @@ package com.example.demo.flight.controller;
 
 import com.example.demo.base.AbstractRestControllerTest;
 import com.example.demo.builder.AirportBuilder;
+import com.example.demo.builder.AirportEntityBuilder;
 import com.example.demo.builder.CreateAirportRequestBuilder;
+import com.example.demo.common.model.CustomPage;
+import com.example.demo.common.model.CustomPaging;
+import com.example.demo.common.model.dto.response.CustomPagingResponse;
 import com.example.demo.flight.exception.AirportNotFoundException;
 import com.example.demo.flight.model.Airport;
+import com.example.demo.flight.model.dto.request.AirportPagingRequest;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
 import com.example.demo.flight.model.dto.response.AirportResponse;
+import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.model.mapper.AirportToAirportResponseMapper;
+import com.example.demo.flight.model.mapper.CustomPageAirportToCustomPagingAirportResponseMapper;
 import com.example.demo.flight.service.airport.AirportService;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -17,7 +27,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,6 +47,9 @@ class AirportControllerTest extends AbstractRestControllerTest {
 
     private final AirportToAirportResponseMapper airportToAirportResponseMapper =
             AirportToAirportResponseMapper.initialize();
+
+    private final CustomPageAirportToCustomPagingAirportResponseMapper customPageAirportToCustomPagingAirportResponseMapper
+            = CustomPageAirportToCustomPagingAirportResponseMapper.initialize();
 
     @Test
     void givenValidCreateAirportRequestByAdmin_whenCreateAirport_thenSuccess() throws Exception{
@@ -258,6 +273,132 @@ class AirportControllerTest extends AbstractRestControllerTest {
 
         // Verify
         verify(airportService,never()).getAirportById(mockAirportId);
+
+    }
+
+    @Test
+    void givenTaskPagingRequest_whenGetTasksFromAdmin_thenReturnCustomPageTask() throws Exception {
+
+        // Given
+        final AirportPagingRequest pagingRequest = AirportPagingRequest.builder()
+                .pagination(
+                        CustomPaging.builder()
+                                .pageSize(1)
+                                .pageNumber(1)
+                                .build()
+                ).build();
+
+        final String airportId = UUID.randomUUID().toString();
+
+        final AirportEntity expectedEntity = new AirportEntityBuilder()
+                .withId(airportId)
+                .withValidFields();
+
+        final List<AirportEntity> airportEntities = List.of(expectedEntity);
+
+        final Page<AirportEntity> airportEntityPage = new PageImpl<>(airportEntities, PageRequest.of(1, 1), airportEntities.size());
+
+        final List<Airport> airportDomainModels = airportEntities.stream()
+                .map(entity -> new Airport(entity.getId(), entity.getName(), entity.getCityName()))
+                .collect(Collectors.toList());
+
+        final CustomPage<Airport> taskPage = CustomPage.of(airportDomainModels, airportEntityPage);
+
+        final CustomPagingResponse<AirportResponse> expectedResponse =
+                customPageAirportToCustomPagingAirportResponseMapper.toPagingResponse(taskPage);
+
+        // When
+        when(airportService.getAllAirports(any(AirportPagingRequest.class))).thenReturn(taskPage);
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/airports")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(pagingRequest))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockAdminToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].id").value(expectedResponse.getContent().get(0).getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].name").value(expectedResponse.getContent().get(0).getName()));
+
+        // Verify
+        verify(airportService, times(1)).getAllAirports(any(AirportPagingRequest.class));
+
+    }
+
+    @Test
+    void givenTaskPagingRequest_whenGetTasksFromUser_thenReturnCustomPageTask() throws Exception {
+
+        // Given
+        final AirportPagingRequest pagingRequest = AirportPagingRequest.builder()
+                .pagination(
+                        CustomPaging.builder()
+                                .pageSize(1)
+                                .pageNumber(1)
+                                .build()
+                ).build();
+
+        final String airportId = UUID.randomUUID().toString();
+
+        final AirportEntity expectedEntity = new AirportEntityBuilder()
+                .withId(airportId)
+                .withValidFields();
+
+        final List<AirportEntity> airportEntities = List.of(expectedEntity);
+
+        final Page<AirportEntity> airportEntityPage = new PageImpl<>(airportEntities, PageRequest.of(1, 1), airportEntities.size());
+
+        final List<Airport> airportDomainModels = airportEntities.stream()
+                .map(entity -> new Airport(entity.getId(), entity.getName(), entity.getCityName()))
+                .collect(Collectors.toList());
+
+        final CustomPage<Airport> taskPage = CustomPage.of(airportDomainModels, airportEntityPage);
+
+        final CustomPagingResponse<AirportResponse> expectedResponse =
+                customPageAirportToCustomPagingAirportResponseMapper.toPagingResponse(taskPage);
+
+        // When
+        when(airportService.getAllAirports(any(AirportPagingRequest.class))).thenReturn(taskPage);
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/airports")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(pagingRequest))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockUserToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].id").value(expectedResponse.getContent().get(0).getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].name").value(expectedResponse.getContent().get(0).getName()));
+
+        // Verify
+        verify(airportService, times(1)).getAllAirports(any(AirportPagingRequest.class));
+
+    }
+
+    @Test
+    void givenTaskPagingRequest_WhenUnauthorized_thenThrowUnauthorized() throws Exception {
+
+        // Given
+        final AirportPagingRequest pagingRequest = AirportPagingRequest.builder()
+                .pagination(
+                        CustomPaging.builder()
+                                .pageSize(1)
+                                .pageNumber(1)
+                                .build()
+                ).build();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/airports")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(pagingRequest)))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
+        // Verify
+        verify(airportService, never()).getAllAirports(any(AirportPagingRequest.class));
 
     }
 

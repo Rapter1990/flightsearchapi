@@ -1,15 +1,26 @@
 package com.example.demo.flight.service.airport.impl;
 
 import com.example.demo.base.AbstractBaseServiceTest;
+import com.example.demo.builder.AirportEntityBuilder;
 import com.example.demo.builder.CreateAirportRequestBuilder;
+import com.example.demo.common.model.CustomPage;
+import com.example.demo.common.model.CustomPaging;
+import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Airport;
+import com.example.demo.flight.model.dto.request.AirportPagingRequest;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
+import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.service.airport.AirportCreateService;
 import com.example.demo.flight.service.airport.AirportReadService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -62,6 +73,7 @@ class AirportServiceImplTest extends AbstractBaseServiceTest {
 
     @Test
     void givenValidAirportId_whenGetAirportById_thenReturnAirport() {
+
         // Given
         String airportId = UUID.randomUUID().toString();
         Airport expectedAirport = Airport.builder()
@@ -83,6 +95,45 @@ class AirportServiceImplTest extends AbstractBaseServiceTest {
 
         // Verify
         verify(airportReadService, times(1)).getAirportById(airportId);
+
+    }
+
+    @Test
+    void givenValidPagingRequest_whenGetAllAirports_thenReturnCustomPageOfAirports() {
+
+        // Given
+        CustomPaging paging = CustomPaging.builder()
+                .pageSize(1)
+                .pageNumber(1)
+                .build();
+
+        CustomPagingRequest pagingRequest = mock(CustomPagingRequest.class);
+
+        List<Airport> airportList = List.of(new Airport());
+        CustomPage<Airport> expectedPage = CustomPage.<Airport>builder()
+                .content(airportList)
+                .pageNumber(1)
+                .pageSize(1)
+                .totalElementCount(1L)
+                .totalPageCount(1)
+                .build();
+
+
+        // When
+        when(pagingRequest.getPagination()).thenReturn(paging);
+        when(pagingRequest.toPageable()).thenReturn(PageRequest.of(paging.getPageNumber(), paging.getPageSize()));
+        when(airportReadService.getAllAirports(pagingRequest)).thenReturn(expectedPage);
+
+        // Then
+        CustomPage<Airport> result = airportService.getAllAirports(pagingRequest);
+
+        assertNotNull(result);
+        assertEquals(expectedPage, result);
+        assertEquals(1, result.getContent().size());
+
+        // Verify
+        verify(airportReadService, times(1)).getAllAirports(pagingRequest);
+
     }
 
 }

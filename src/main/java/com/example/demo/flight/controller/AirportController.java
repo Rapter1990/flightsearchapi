@@ -1,10 +1,14 @@
 package com.example.demo.flight.controller;
 
+import com.example.demo.common.model.CustomPage;
+import com.example.demo.common.model.dto.response.CustomPagingResponse;
 import com.example.demo.common.model.dto.response.CustomResponse;
 import com.example.demo.flight.model.Airport;
+import com.example.demo.flight.model.dto.request.AirportPagingRequest;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
 import com.example.demo.flight.model.dto.response.AirportResponse;
 import com.example.demo.flight.model.mapper.AirportToAirportResponseMapper;
+import com.example.demo.flight.model.mapper.CustomPageAirportToCustomPagingAirportResponseMapper;
 import com.example.demo.flight.service.airport.AirportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -27,6 +31,9 @@ public class AirportController {
     private final AirportService airportService;
     private final AirportToAirportResponseMapper airportToAirportResponseMapper  =  AirportToAirportResponseMapper.initialize();
 
+    private final CustomPageAirportToCustomPagingAirportResponseMapper customPageAirportToCustomPagingAirportResponseMapper
+            = CustomPageAirportToCustomPagingAirportResponseMapper.initialize();
+
 
     /**
      * Creates a new airport and saves it to the database.
@@ -48,9 +55,9 @@ public class AirportController {
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public CustomResponse<String> createAirport(@RequestBody @Valid final CreateAirportRequest createAirportRequest){
-        final Airport createdTask = airportService.createAirport(createAirportRequest);
+        final Airport savedAirport = airportService.createAirport(createAirportRequest);
 
-        return CustomResponse.successOf(createdTask.getId());
+        return CustomResponse.successOf(savedAirport.getId());
     }
 
     /**
@@ -76,6 +83,34 @@ public class AirportController {
         final Airport airport = airportService.getAirportById(id);
 
         final AirportResponse response = airportToAirportResponseMapper.map(airport);
+
+        return CustomResponse.successOf(response);
+    }
+
+    /**
+     * Retrieves a paginated list of airports.
+     *
+     * @param request the request body containing pagination and sorting information.
+     * @return a paginated response containing a list of airports.
+     */
+    @Operation(
+            summary = "Get all airports",
+            description = "Retrieves a paginated list of airports. Accessible by both ADMIN and USER roles.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Airports successfully retrieved"),
+                    @ApiResponse(responseCode = "400", description = "Invalid airports details provided"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized, authentication is required"),
+                    @ApiResponse(responseCode = "403", description = "Access forbidden"),
+                    @ApiResponse(responseCode = "404", description = "Airport not found")
+            }
+    )
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    public CustomResponse<CustomPagingResponse<AirportResponse>> getAllAirports(@RequestBody @Valid final AirportPagingRequest request){
+        final CustomPage<Airport> airportCustomPage= airportService.getAllAirports(request);
+
+        final CustomPagingResponse<AirportResponse> response = customPageAirportToCustomPagingAirportResponseMapper
+                .toPagingResponse(airportCustomPage);
 
         return CustomResponse.successOf(response);
     }
