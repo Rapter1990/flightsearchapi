@@ -21,7 +21,6 @@ import java.util.UUID;
 public class LogEntity extends BaseEntity {
 
     @Id
-    @Field(name = "ID")
     @Indexed(unique = true)
     private String id = UUID.randomUUID().toString();
 
