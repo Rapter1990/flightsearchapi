@@ -4,6 +4,7 @@ import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
 
 /**
  * Service interface for managing an airport in the system.
@@ -33,5 +34,14 @@ public interface AirportService {
      * @return a {@link CustomPage} of tasks, containing a list of tasks and pagination details.
      */
     CustomPage<Airport> getAllAirports(final CustomPagingRequest customPagingRequest);
+
+    /**
+     * Updates an existing an airport by its ID.
+     *
+     * @param id the ID of the airport to be updated.
+     * @param updateAirportRequest the request object containing the updated details of the airport.
+     * @return the updated {@link Airport} entity.
+     */
+    Airport updateAirportById(final String id, final UpdateAirportRequest updateAirportRequest);
 
 }

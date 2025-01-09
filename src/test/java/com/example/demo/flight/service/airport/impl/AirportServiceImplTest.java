@@ -1,17 +1,21 @@
 package com.example.demo.flight.service.airport.impl;
 
 import com.example.demo.base.AbstractBaseServiceTest;
+import com.example.demo.builder.AirportBuilder;
 import com.example.demo.builder.AirportEntityBuilder;
 import com.example.demo.builder.CreateAirportRequestBuilder;
+import com.example.demo.builder.UpdateAirportRequestBuilder;
 import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.CustomPaging;
 import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.dto.request.AirportPagingRequest;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
 import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.service.airport.AirportCreateService;
 import com.example.demo.flight.service.airport.AirportReadService;
+import com.example.demo.flight.service.airport.AirportUpdateService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -21,6 +25,7 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,6 +46,9 @@ class AirportServiceImplTest extends AbstractBaseServiceTest {
 
     @Mock
     private AirportReadService airportReadService;
+
+    @Mock
+    private AirportUpdateService airportUpdateService;
 
     @Test
     void givenValidCreateAirportRequest_whenCreateAirport_thenReturnCreatedAirport() {
@@ -133,6 +141,43 @@ class AirportServiceImplTest extends AbstractBaseServiceTest {
 
         // Verify
         verify(airportReadService, times(1)).getAllAirports(pagingRequest);
+
+    }
+
+    @Test
+    void givenUpdateAirportRequest_whenUpdateAirportById_thenSuccess() {
+
+        // Given
+        final String mockId = UUID.randomUUID().toString();
+
+        final UpdateAirportRequest mockUpdateAirportRequest = new UpdateAirportRequestBuilder()
+                .withValidFields()
+                .build();
+
+        final AirportEntity updatedAirportEntity = new AirportEntityBuilder()
+                .withId(mockId)
+                .withName(mockUpdateAirportRequest.getName())
+                .withCityName(mockUpdateAirportRequest.getCityName())
+                .build();
+
+        final Airport expected = new AirportBuilder()
+                .withId(updatedAirportEntity.getId())
+                .withName(updatedAirportEntity.getName())
+                .withCityName(updatedAirportEntity.getCityName())
+                .build();
+
+        when(airportUpdateService.updateAirportById(mockId, mockUpdateAirportRequest)).thenReturn(expected);
+
+        // When
+        Airport result = airportService.updateAirportById(mockId, mockUpdateAirportRequest);
+
+        // Then
+        assertNotNull(result);
+        assertEquals(expected.getName(), result.getName());
+        assertEquals(expected.getCityName(), result.getCityName());
+
+        // Verify
+        verify(airportUpdateService,times(1)).updateAirportById(mockId, mockUpdateAirportRequest);
 
     }
 

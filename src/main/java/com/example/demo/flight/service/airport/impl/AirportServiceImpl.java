@@ -4,9 +4,11 @@ import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
 import com.example.demo.flight.service.airport.AirportCreateService;
 import com.example.demo.flight.service.airport.AirportReadService;
 import com.example.demo.flight.service.airport.AirportService;
+import com.example.demo.flight.service.airport.AirportUpdateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ public class AirportServiceImpl implements AirportService {
 
     private final AirportCreateService airportCreateService;
     private final AirportReadService airportReadService;
+    private final AirportUpdateService airportUpdateService;
 
     /**
      * Create a new airport to the database.
@@ -51,6 +54,18 @@ public class AirportServiceImpl implements AirportService {
     @Override
     public CustomPage<Airport> getAllAirports(CustomPagingRequest customPagingRequest) {
         return airportReadService.getAllAirports(customPagingRequest);
+    }
+
+    /**
+     * Updates an existing an airport by its ID.
+     *
+     * @param id the ID of the airport to be updated.
+     * @param updateAirportRequest the request object containing the updated details of the airport.
+     * @return the updated {@link Airport} entity.
+     */
+    @Override
+    public Airport updateAirportById(String id, UpdateAirportRequest updateAirportRequest) {
+        return airportUpdateService.updateAirportById(id,updateAirportRequest);
     }
 
 

@@ -4,13 +4,16 @@ import com.example.demo.base.AbstractRestControllerTest;
 import com.example.demo.builder.AirportBuilder;
 import com.example.demo.builder.AirportEntityBuilder;
 import com.example.demo.builder.CreateAirportRequestBuilder;
+import com.example.demo.builder.UpdateAirportRequestBuilder;
 import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.CustomPaging;
 import com.example.demo.common.model.dto.response.CustomPagingResponse;
+import com.example.demo.flight.exception.AirportNameAlreadyExistException;
 import com.example.demo.flight.exception.AirportNotFoundException;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.dto.request.AirportPagingRequest;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
 import com.example.demo.flight.model.dto.response.AirportResponse;
 import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.model.mapper.AirportToAirportResponseMapper;
@@ -401,5 +404,164 @@ class AirportControllerTest extends AbstractRestControllerTest {
         verify(airportService, never()).getAllAirports(any(AirportPagingRequest.class));
 
     }
+
+    @Test
+    void givenValidTaskUpdate_WithAdminUpdate_whenUpdateTask_thenSuccess() throws Exception{
+
+        // Given
+        final String mockId = UUID.randomUUID().toString();
+
+        final UpdateAirportRequest request = new UpdateAirportRequestBuilder()
+                .withValidFields()
+                .build();
+
+        final Airport expectedAirport = new AirportBuilder()
+                .withId(mockId)
+                .withName(request.getName())
+                .withCityName(request.getCityName())
+                .build();
+
+        // When
+        when(airportService.updateAirportById(anyString(),any(UpdateAirportRequest.class)))
+                .thenReturn(expectedAirport);
+
+        // Then
+        mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .put("/api/v1/airports/{id}",mockId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                                .header(HttpHeaders.AUTHORIZATION,"Bearer " + mockAdminToken.getAccessToken())
+
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.id").value(expectedAirport.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.name").value(expectedAirport.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.cityName").value(expectedAirport.getCityName()));
+
+        // Verify
+        verify(airportService,times(1))
+                .updateAirportById(anyString(),any(UpdateAirportRequest.class));
+
+    }
+
+    @Test
+    void givenTaskWithDuplicateName_whenUpdateTask_thenThrowTaskWithThisNameAlreadyExistException() throws Exception {
+
+        // Given
+        final String mockId = UUID.randomUUID().toString();
+
+        final UpdateAirportRequest request = new UpdateAirportRequestBuilder()
+                .withName("Airport Duplicate Name")
+                .withCityName("City Name")
+                .build();
+
+        // When
+        when(airportService.updateAirportById(anyString(), any(UpdateAirportRequest.class)))
+                .thenThrow(new AirportNameAlreadyExistException("With given task name = " + request.getName()));
+
+        // Then
+        mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .put("/api/v1/airports/{id}", mockId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                                .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockAdminToken.getAccessToken())
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("BAD_REQUEST"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Airport with this name already exist\n With given task name = " + request.getName()));
+
+        // Verify
+        verify(airportService, times(1))
+                .updateAirportById(anyString(), any(UpdateAirportRequest.class));
+
+    }
+
+    @Test
+    void givenInvalidTaskId_whenUpdateTask_thenThrowNotFoundException() throws Exception {
+
+        // Given
+        final String nonExistentTaskId = UUID.randomUUID().toString();
+
+        final UpdateAirportRequest request = new UpdateAirportRequestBuilder()
+                .withValidFields()
+                .build();
+
+        final String expectedMessage = "Airport not found!\n Airport not found with ID: " + nonExistentTaskId;
+
+        // When
+        when(airportService.updateAirportById(anyString(), any(UpdateAirportRequest.class)))
+                .thenThrow(new AirportNotFoundException("Airport not found with ID: " + nonExistentTaskId));
+
+        // Then
+        mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .put("/api/v1/airports/{id}", nonExistentTaskId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                                .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockAdminToken.getAccessToken())
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("NOT_FOUND"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(expectedMessage))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(false));
+
+        // Verify
+        verify(airportService, times(1)).updateAirportById(anyString(), any(UpdateAirportRequest.class));
+
+    }
+
+
+    @Test
+    void givenValidUpdateTaskRequest_whenUserUnAuthorized_thenReturnUnauthorized() throws Exception {
+
+        // Given
+        final String mockId = UUID.randomUUID().toString();
+
+        final UpdateAirportRequest request = new UpdateAirportRequestBuilder()
+                .withValidFields()
+                .build();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/airports/{id}",mockId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .header(HttpHeaders.AUTHORIZATION,"Bearer " + mockUserToken.getAccessToken())
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isForbidden());
+
+        // Verify
+        verify(airportService,never()).updateAirportById(anyString(), any(UpdateAirportRequest.class));
+
+    }
+
+    @Test
+    void givenValidUpdateRequest_whenUserNotAuthenticated_thenThrowUnAuthorize() throws Exception{
+
+        // Given
+        final String mockId = UUID.randomUUID().toString();
+
+        final UpdateAirportRequest request = new UpdateAirportRequestBuilder()
+                .withValidFields()
+                .build();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/tasks/{id}",mockId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
+        // Verify
+        verify(airportService,never()).updateAirportById(anyString(), any(UpdateAirportRequest.class));
+
+    }
+
 
 }

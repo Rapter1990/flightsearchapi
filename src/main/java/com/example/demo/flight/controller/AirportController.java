@@ -6,6 +6,7 @@ import com.example.demo.common.model.dto.response.CustomResponse;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.dto.request.AirportPagingRequest;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
 import com.example.demo.flight.model.dto.response.AirportResponse;
 import com.example.demo.flight.model.mapper.AirportToAirportResponseMapper;
 import com.example.demo.flight.model.mapper.CustomPageAirportToCustomPagingAirportResponseMapper;
@@ -114,5 +115,38 @@ public class AirportController {
 
         return CustomResponse.successOf(response);
     }
+
+    /**
+     * Updates an existing task by its ID.
+     *
+     * @param id the ID of the task to be updated.
+     * @param updateAirportRequest the request body containing the updated task details.
+     * @return a response containing the updated task details.
+     */
+    @Operation(
+            summary = "Update an airport",
+            description = "Updates an existing airport by its ID. Accessible by ADMIN only.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Airport successfully updated"),
+                    @ApiResponse(responseCode = "400", description = "Invalid update details provided"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized, authentication is required"),
+                    @ApiResponse(responseCode = "403", description = "Access forbidden"),
+                    @ApiResponse(responseCode = "404", description = "Airport not found")
+            }
+    )
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public CustomResponse<AirportResponse> updateAirportById(
+            @PathVariable @Valid @UUID final String id,
+            @RequestBody @Valid final UpdateAirportRequest updateAirportRequest){
+
+        final Airport airport = airportService.updateAirportById(id, updateAirportRequest);
+
+        final AirportResponse response = airportToAirportResponseMapper.map(airport);
+
+        return CustomResponse.successOf(response);
+
+    }
+
 
 }
