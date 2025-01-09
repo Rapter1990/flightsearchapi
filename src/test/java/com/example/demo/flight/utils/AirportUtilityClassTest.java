@@ -29,28 +29,40 @@ class AirportUtilityClassTest extends AbstractBaseServiceTest {
 
     @Test
     void checkAirportNameUniqueness_ShouldThrowException_WhenNameExists() {
+
+        // Given
         String existingAirportName = "Existing Airport";
 
+        // When
         when(airportRepository.existsByName(existingAirportName)).thenReturn(true);
 
+        // Then
         assertThrows(AirportNameAlreadyExistException.class, () ->
                 AirportUtilityClass.checkAirportNameUniqueness(airportRepository, existingAirportName)
         );
 
+        // Verify
         verify(airportRepository).existsByName(existingAirportName);
+
     }
 
     @Test
     void checkAirportNameUniqueness_ShouldNotThrowException_WhenNameDoesNotExist() {
+
+        // Given
         String newAirportName = "New Airport";
 
+        // When
         when(airportRepository.existsByName(newAirportName)).thenReturn(false);
 
+        // Then
         assertDoesNotThrow(() ->
                 AirportUtilityClass.checkAirportNameUniqueness(airportRepository, newAirportName)
         );
 
+        // Verify
         verify(airportRepository).existsByName(newAirportName);
+
     }
 
 }
