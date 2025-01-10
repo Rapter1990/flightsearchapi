@@ -1,0 +1,890 @@
+{
+	"info": {
+		"_postman_id": "146047cf-7718-4dfa-8bd1-366c70815f1f",
+		"name": "Flight Search Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33002673"
+	},
+	"item": [
+		{
+			"name": "auth | admin",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"exampleAdminFirstName\",\r\n    \"lastName\": \"exampleAdminSurName\",\r\n    \"email\": \"exampleAdmin@gmail.com\",\r\n    \"password\": \"exampleAdmin\",\r\n    \"phoneNumber\": \"01234567890\",\r\n    \"userType\" : \"ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:1133/api/v1/authentication/user/register",
+							"host": [
+								"localhost"
+							],
+							"port": "1133",
+							"path": [
+								"api",
+								"v1",
+								"authentication",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains accessToken and refreshToken\r",
+									"if (response.isSuccess && response.response.accessToken && response.response.refreshToken) {\r",
+									"    // Set the tokens as environment variables for admin\r",
+									"    pm.environment.set(\"ADMIN_ACCESS_TOKEN\", response.response.accessToken);\r",
+									"    pm.environment.set(\"ADMIN_REFRESH_TOKEN\", response.response.refreshToken);\r",
+									"    \r",
+									"    console.log(\"Admin Access Token and Refresh Token have been set successfully.\");\r",
+									"} else {\r",
+									"    console.error(\"Failed to extract admin tokens from the response.\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"exampleAdmin@gmail.com\",\r\n    \"password\": \"exampleAdmin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:1133/api/v1/authentication/user/login",
+							"host": [
+								"localhost"
+							],
+							"port": "1133",
+							"path": [
+								"api",
+								"v1",
+								"authentication",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains accessToken and refreshToken\r",
+									"if (response.isSuccess && response.response.accessToken && response.response.refreshToken) {\r",
+									"    // Set the new tokens as environment variables\r",
+									"    pm.environment.set(\"ADMIN_ACCESS_TOKEN\", response.response.accessToken);\r",
+									"    pm.environment.set(\"ADMIN_REFRESH_TOKEN\", response.response.refreshToken);\r",
+									"    \r",
+									"    console.log(\"Admin Access Token and Refresh Token have been updated successfully.\");\r",
+									"} else {\r",
+									"    console.error(\"Failed to update admin tokens. Check the response structure or success status.\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJlZWI0YzBmZS0wOWY1LTQ4N2EtOTkzOC04ODY2ZTA0MmY5NjIiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzY1MzQ4NTUsImV4cCI6MTczNjYyMTI1NSwidXNlcklkIjoiNjc3ZWQ0MmRjNjM4YmM3YmZjOTQ5M2QxIn0.wAFmaE6BWKPktDRlpOOH8u8DrOSfWoajPOW-rpU9r3TvA1cnvtmPO0evAt2IcTl537dLGhmrlunQCMzBzpSaA1tn2hZtdGkVJtB-Nc-ByXRaMoHmMFom83k59AVyonUKkhiFdt3MTb-8_LA9jcnIylrk5I63T-9PjG8McPHBvYGgG_8yKfDvnZ0G5PrftM7tndfd8cEsyDkIUawHCjDOuJsyIDLZ0vB3nQY-7tTnXvKPblmoQQjQFYoKQZapCO5DNwqF-cL070kDEsPb15p5fCfpHX52sG2C5AUAEuufIiAXtwbDlRdTk9KxMfBb80ECYz-Q9psjYKot66jok0Xolg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:1133/api/v1/authentication/user/refresh-token",
+							"host": [
+								"localhost"
+							],
+							"port": "1133",
+							"path": [
+								"api",
+								"v1",
+								"authentication",
+								"user",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response\r",
+									"if (pm.response.code === 200) {\r",
+									"    const response = pm.response.json();\r",
+									"    \r",
+									"    // Check if the response is successful\r",
+									"    if (response.isSuccess) {\r",
+									"        // Set ADMIN_ACCESS_TOKEN and ADMIN_REFRESH_TOKEN to empty strings in the environment\r",
+									"        pm.environment.set(\"ADMIN_ACCESS_TOKEN\", \"\");\r",
+									"        pm.environment.set(\"ADMIN_REFRESH_TOKEN\", \"\");\r",
+									"        console.log(\"Tokens cleared successfully.\");\r",
+									"    } else {\r",
+									"        console.log(\"Logout was not successful, tokens not cleared.\");\r",
+									"    }\r",
+									"} else {\r",
+									"    console.log(\"Request failed, tokens not cleared.\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accessToken\": \"eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI5YTYwZjcwZi0xOGU4LTRiZWMtOTUzZS1hNjU0OTUyZjE2YmIiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzY1MzQ4NzAsImV4cCI6MTczNjUzNjY3MCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6IjY3N2VkNDJkYzYzOGJjN2JmYzk0OTNkMSJ9.aSv1lmD3EFEkVAHKBQQ6VFg8qB2HJtQxG6xJ8sFDaFhd9GZAM9E5JPYYATPMrYnLsu8i2_EdxpqtoLDpCQYPiE2AIe_j63KUyP4Qpd8hwWSLNzoNEreK5vgy-nPJCwTS4TayzquWl5MdGE8o3T0WCEJi34lEfCKKETijBLhYwEbA9qJlvAWO5HbRwCSnhqnQ4r8Kkv3K5rHsvW81bpaRGgKAv1TFXK87JqSbhuUPevYTacNL2KoWMj5EtBvHpRyITe_fcAqfmvzRUDHAXHhifL0rJ-GGV1UjNkNVPp9gyxQyeFlKdAczLcYtlXMJaq18v_SS1c_FINM-mwe_Lkn_qw\",\r\n    \"refreshToken\": \"eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJlZWI0YzBmZS0wOWY1LTQ4N2EtOTkzOC04ODY2ZTA0MmY5NjIiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzY1MzQ4NTUsImV4cCI6MTczNjYyMTI1NSwidXNlcklkIjoiNjc3ZWQ0MmRjNjM4YmM3YmZjOTQ5M2QxIn0.wAFmaE6BWKPktDRlpOOH8u8DrOSfWoajPOW-rpU9r3TvA1cnvtmPO0evAt2IcTl537dLGhmrlunQCMzBzpSaA1tn2hZtdGkVJtB-Nc-ByXRaMoHmMFom83k59AVyonUKkhiFdt3MTb-8_LA9jcnIylrk5I63T-9PjG8McPHBvYGgG_8yKfDvnZ0G5PrftM7tndfd8cEsyDkIUawHCjDOuJsyIDLZ0vB3nQY-7tTnXvKPblmoQQjQFYoKQZapCO5DNwqF-cL070kDEsPb15p5fCfpHX52sG2C5AUAEuufIiAXtwbDlRdTk9KxMfBb80ECYz-Q9psjYKot66jok0Xolg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:1133/api/v1/authentication/user/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "1133",
+							"path": [
+								"api",
+								"v1",
+								"authentication",
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth | user",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"exampleUserFirstName\",\r\n    \"lastName\": \"exampleUserSurName\",\r\n    \"email\": \"exampleUser@gmail.com\",\r\n    \"password\": \"exampleUser\",\r\n    \"phoneNumber\": \"01234567890\",\r\n    \"userType\" : \"USER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:1133/api/v1/authentication/user/register",
+							"host": [
+								"localhost"
+							],
+							"port": "1133",
+							"path": [
+								"api",
+								"v1",
+								"authentication",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains accessToken and refreshToken\r",
+									"if (response.isSuccess && response.response.accessToken && response.response.refreshToken) {\r",
+									"    // Set the tokens as environment variables for admin\r",
+									"    pm.environment.set(\"USER_ACCESS_TOKEN\", response.response.accessToken);\r",
+									"    pm.environment.set(\"USER_REFRESH_TOKEN\", response.response.refreshToken);\r",
+									"    \r",
+									"    console.log(\"User Access Token and Refresh Token have been set successfully.\");\r",
+									"} else {\r",
+									"    console.error(\"Failed to extract admin tokens from the response.\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"exampleUser@gmail.com\",\r\n    \"password\": \"exampleUser\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:1133/api/v1/authentication/user/login",
+							"host": [
+								"localhost"
+							],
+							"port": "1133",
+							"path": [
+								"api",
+								"v1",
+								"authentication",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Check if the response contains accessToken and refreshToken\r",
+									"if (response.isSuccess && response.response.accessToken && response.response.refreshToken) {\r",
+									"    // Set the new tokens as environment variables\r",
+									"    pm.environment.set(\"USER_ACCESS_TOKEN\", response.response.accessToken);\r",
+									"    pm.environment.set(\"USER_REFRESH_TOKEN\", response.response.refreshToken);\r",
+									"    \r",
+									"    console.log(\"User Access Token and Refresh Token have been updated successfully.\");\r",
+									"} else {\r",
+									"    console.error(\"User to update admin tokens. Check the response structure or success status.\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI5ZDFjZDQ5OC1hZTBjLTQ5NWEtYjA2OC03MGI3Zjk3N2FjNmIiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzYzNjQ3MDAsImV4cCI6MTczNjQ1MTEwMCwidXNlcklkIjoiNjc3OWFjZWQ0ZjgyY2Q3MDVjMjgyZjk3In0.rDsDXF58WAr-21YQp8cyMQHPwof5iVqXCpm6nOcqZ1WEFrsq66eMhWiJ88culWkuaAHQ7z__BPEysGZa3oHAS7dCySm_7h8nG4TQ3gHbAB9PMvvIxxNONCHwtODV_8REYkzE0QC3BXNsVj2TsrQVKy5-ABTDu5mFAvk71ZkQQiS0NYyXBLADxxjSwt5-aYRN1huVmthjRKZbX2Yy8O5JyyPQGrRw8Wiv4PPLqFnRi1C9uN3qrLdgH82RdTgarQA33f7pigwbXnSaiJOkk_4m8cQyomO_TASER8xbhoBdNinNBpFtogJ3MMKS7AUXSjg2CbxbIo9VL1YRHX5flOvoag\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:1133/api/v1/authentication/user/refresh-token",
+							"host": [
+								"localhost"
+							],
+							"port": "1133",
+							"path": [
+								"api",
+								"v1",
+								"authentication",
+								"user",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response\r",
+									"if (pm.response.code === 200) {\r",
+									"    const response = pm.response.json();\r",
+									"    \r",
+									"    // Check if the response is successful\r",
+									"    if (response.isSuccess) {\r",
+									"        // Set USER_ACCESS_TOKEN and USER_REFRESH_TOKEN to empty strings in the environment\r",
+									"        pm.environment.set(\"USER_ACCESS_TOKEN\", \"\");\r",
+									"        pm.environment.set(\"USER_REFRESH_TOKEN\", \"\");\r",
+									"        console.log(\"Tokens cleared successfully.\");\r",
+									"    } else {\r",
+									"        console.log(\"Logout was not successful, tokens not cleared.\");\r",
+									"    }\r",
+									"} else {\r",
+									"    console.log(\"Request failed, tokens not cleared.\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accessToken\": \"eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiIyZDMzMzY1MS05YWViLTRmOTMtODBkNC0yZTEyMzUxOWVjNzIiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MTEwNTM5NzMsImV4cCI6MTcxMTA1NTc3MywidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6IjE2NzNhZDc1LWE5NDUtNDY1OS04YmNjLTkxZGMwM2M3MjVmYSJ9.RQP9n6T53guuYj5UwBiaX29Tt3bJ4ZkLo52BN-Ct4GC4yTwA5kIQZTQoLh8dB2w9UGtMZ-iowtr4ijGa6UnvGbUiZ2DfbSWwXSm-oNJjaLX3f6R9b8fTQxU3Gn8m5Yh4csCpbnRm7-OzosMX0CH1fpmsNOWd19G1nwi_MxxPxu2JLN-jryEENpmdJ0c1nYq6OeU2sxekhTZBPvOE7U5zZd4OGqW_g8S1W_nv8sL6u783CCod8HeceupyMBDhR_m7nMehfgIIgMrM-wyxdH6j7g-MkNCMhoARYrWlF1mH0S_MJWJG0hIksfvzt9KazT_oDR4xsiquV7Sn1e_WWgp9_g\",\r\n    \"refreshToken\": \"eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI4NGE4ZmVmOS0wNzcxLTQ0NDQtOGE2NS0wNWZkMTM0Y2NhYTkiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MTEwNTM5NDYsImV4cCI6MTcxMTE0MDM0NiwidXNlcklkIjoiMTY3M2FkNzUtYTk0NS00NjU5LThiY2MtOTFkYzAzYzcyNWZhIn0.PLf-HzLj8wBAD28IyvD9FU6upPCBvGNHpFB2W7k1AS9qCR5vR6z778ZJwyU4eTfjahCdm6xNF1OffPgzf--0EDoX9iggiuSG-GDWempEk4GvKA1QHH9xraQZWKqXw429gJZgWtJN8EMW1L-BpHqHm8ddie1TE_7ofL54Oipb5AQ2r3PYuVsClGOy2KKOvnHGZ5uqjWlewkZXeJgtGF7y45kwIm_iLKZYCHM3vUIb1sd7F0agGKwHufQR_YWrGGc5nSg287mCAAgF5335ykquAUw4incbVhYSzVOakdEQaEw9KNOLO8J2H_1FYWyO2ywkuTEn_PvvcG9LIwSqF3QVVA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:1133/api/v1/authentication/user/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "1133",
+							"path": [
+								"api",
+								"v1",
+								"authentication",
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "flights",
+			"item": [
+				{
+					"name": "airport",
+					"item": [
+						{
+							"name": "admin",
+							"item": [
+								{
+									"name": "Create Airport",
+									"item": [
+										{
+											"name": "Create An Airport (İstanbul)",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\" : \"IST\",\r\n    \"cityName\" : \"İstanbul\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/airports",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create An Airport (Ankara)",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\" : \"ESB\",\r\n    \"cityName\" : \"Ankara\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/airports",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create An Airport (İzmir)",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3NjY4ZmRlOC01ZWZlLTQyNzgtYWY0MS0zMWQ5Njg3ZTU4ODgiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzQzMjg3MjAsImV4cCI6MTczNDMzMDUyMCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6ImQyZDAwMzExLWM2YjgtNGMyMS05N2VkLTQ0MTk5Mzg1NmU4ZCJ9.FlmN3PfpKNpB-F53uZin8dBCZ-cdbpq54iDf7sDFsgXZywCScRME6kkM0OuMCCGQWMWAWOw3blPlBOS2RLatz--HueEsXcfB89BKiCjQLFD3eakLpKJ4LqdQQuxeJ7X686wKDlxmqTsB65KGddbng0y9O2O4M3Ict0vkwBog84sBHE5d822XXB_69X2aQ2IqSoQE1P43eMGUaAie-5UQeVOmkxMUuIlPPW0DJQ37PQdtnQfFZnxWH_cO2ZctebzWhG4pYRBL6DofH5P23T1-5572xL26zZLrV5iAgq0u40v8jeqqn1b89Z-qAr0UuvCbRCrXK93FyK_DzgtzQTVAmg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\" : \"ADB\",\r\n    \"cityName\" : \"İzmir\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/airports",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create An Airport (Antalya)",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3NjY4ZmRlOC01ZWZlLTQyNzgtYWY0MS0zMWQ5Njg3ZTU4ODgiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzQzMjg3MjAsImV4cCI6MTczNDMzMDUyMCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6ImQyZDAwMzExLWM2YjgtNGMyMS05N2VkLTQ0MTk5Mzg1NmU4ZCJ9.FlmN3PfpKNpB-F53uZin8dBCZ-cdbpq54iDf7sDFsgXZywCScRME6kkM0OuMCCGQWMWAWOw3blPlBOS2RLatz--HueEsXcfB89BKiCjQLFD3eakLpKJ4LqdQQuxeJ7X686wKDlxmqTsB65KGddbng0y9O2O4M3Ict0vkwBog84sBHE5d822XXB_69X2aQ2IqSoQE1P43eMGUaAie-5UQeVOmkxMUuIlPPW0DJQ37PQdtnQfFZnxWH_cO2ZctebzWhG4pYRBL6DofH5P23T1-5572xL26zZLrV5iAgq0u40v8jeqqn1b89Z-qAr0UuvCbRCrXK93FyK_DzgtzQTVAmg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\" : \"AYT\",\r\n    \"cityName\" : \"Antalya\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/airports",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Get Airport By Id",
+									"item": [
+										{
+											"name": "Get Airport By Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3NjY4ZmRlOC01ZWZlLTQyNzgtYWY0MS0zMWQ5Njg3ZTU4ODgiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzQzMjg3MjAsImV4cCI6MTczNDMzMDUyMCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6ImQyZDAwMzExLWM2YjgtNGMyMS05N2VkLTQ0MTk5Mzg1NmU4ZCJ9.FlmN3PfpKNpB-F53uZin8dBCZ-cdbpq54iDf7sDFsgXZywCScRME6kkM0OuMCCGQWMWAWOw3blPlBOS2RLatz--HueEsXcfB89BKiCjQLFD3eakLpKJ4LqdQQuxeJ7X686wKDlxmqTsB65KGddbng0y9O2O4M3Ict0vkwBog84sBHE5d822XXB_69X2aQ2IqSoQE1P43eMGUaAie-5UQeVOmkxMUuIlPPW0DJQ37PQdtnQfFZnxWH_cO2ZctebzWhG4pYRBL6DofH5P23T1-5572xL26zZLrV5iAgq0u40v8jeqqn1b89Z-qAr0UuvCbRCrXK93FyK_DzgtzQTVAmg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/airports/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": ""
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Airport By Non Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/airports/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "678192205fa91e6bcd380c1d"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Get All Airports",
+									"item": [
+										{
+											"name": "Get All Airports",
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3NjY4ZmRlOC01ZWZlLTQyNzgtYWY0MS0zMWQ5Njg3ZTU4ODgiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzQzMjg3MjAsImV4cCI6MTczNDMzMDUyMCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6ImQyZDAwMzExLWM2YjgtNGMyMS05N2VkLTQ0MTk5Mzg1NmU4ZCJ9.FlmN3PfpKNpB-F53uZin8dBCZ-cdbpq54iDf7sDFsgXZywCScRME6kkM0OuMCCGQWMWAWOw3blPlBOS2RLatz--HueEsXcfB89BKiCjQLFD3eakLpKJ4LqdQQuxeJ7X686wKDlxmqTsB65KGddbng0y9O2O4M3Ict0vkwBog84sBHE5d822XXB_69X2aQ2IqSoQE1P43eMGUaAie-5UQeVOmkxMUuIlPPW0DJQ37PQdtnQfFZnxWH_cO2ZctebzWhG4pYRBL6DofH5P23T1-5572xL26zZLrV5iAgq0u40v8jeqqn1b89Z-qAr0UuvCbRCrXK93FyK_DzgtzQTVAmg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"pagination\": {\r\n    \"pageNumber\": 1,\r\n    \"pageSize\": 5\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/airports",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "user",
+							"item": [
+								{
+									"name": "Get Airport By Id",
+									"item": [
+										{
+											"name": "Get Airport By Existing Id",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/airports/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": ""
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Airport By Non Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3NjY4ZmRlOC01ZWZlLTQyNzgtYWY0MS0zMWQ5Njg3ZTU4ODgiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzQzMjg3MjAsImV4cCI6MTczNDMzMDUyMCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6ImQyZDAwMzExLWM2YjgtNGMyMS05N2VkLTQ0MTk5Mzg1NmU4ZCJ9.FlmN3PfpKNpB-F53uZin8dBCZ-cdbpq54iDf7sDFsgXZywCScRME6kkM0OuMCCGQWMWAWOw3blPlBOS2RLatz--HueEsXcfB89BKiCjQLFD3eakLpKJ4LqdQQuxeJ7X686wKDlxmqTsB65KGddbng0y9O2O4M3Ict0vkwBog84sBHE5d822XXB_69X2aQ2IqSoQE1P43eMGUaAie-5UQeVOmkxMUuIlPPW0DJQ37PQdtnQfFZnxWH_cO2ZctebzWhG4pYRBL6DofH5P23T1-5572xL26zZLrV5iAgq0u40v8jeqqn1b89Z-qAr0UuvCbRCrXK93FyK_DzgtzQTVAmg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/airports/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": ""
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Get All Airports",
+									"item": [
+										{
+											"name": "Get All Airports",
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3NjY4ZmRlOC01ZWZlLTQyNzgtYWY0MS0zMWQ5Njg3ZTU4ODgiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzQzMjg3MjAsImV4cCI6MTczNDMzMDUyMCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6ImQyZDAwMzExLWM2YjgtNGMyMS05N2VkLTQ0MTk5Mzg1NmU4ZCJ9.FlmN3PfpKNpB-F53uZin8dBCZ-cdbpq54iDf7sDFsgXZywCScRME6kkM0OuMCCGQWMWAWOw3blPlBOS2RLatz--HueEsXcfB89BKiCjQLFD3eakLpKJ4LqdQQuxeJ7X686wKDlxmqTsB65KGddbng0y9O2O4M3Ict0vkwBog84sBHE5d822XXB_69X2aQ2IqSoQE1P43eMGUaAie-5UQeVOmkxMUuIlPPW0DJQ37PQdtnQfFZnxWH_cO2ZctebzWhG4pYRBL6DofH5P23T1-5572xL26zZLrV5iAgq0u40v8jeqqn1b89Z-qAr0UuvCbRCrXK93FyK_DzgtzQTVAmg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"pagination\": {\r\n    \"pageNumber\": 1,\r\n    \"pageSize\": 5\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/airports",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "flights",
+					"item": [
+						{
+							"name": "admin",
+							"item": [
+								{
+									"name": "New Request",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "user",
+							"item": [
+								{
+									"name": "New Request",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
