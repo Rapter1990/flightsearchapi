@@ -44,4 +44,12 @@ public interface AirportService {
      */
     Airport updateAirportById(final String id, final UpdateAirportRequest updateAirportRequest);
 
+    /**
+     * Deletes an airport by its ID.
+     *
+     * @param id the ID of the airport to be deleted.
+     */
+    void deleteAirportById(String id);
+
+
 }

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service interface for retrieving an airport in the system.
+ * Service implementation for retrieving an airport in the system.
  */
 @Service
 @RequiredArgsConstructor

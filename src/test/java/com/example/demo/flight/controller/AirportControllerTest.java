@@ -563,5 +563,92 @@ class AirportControllerTest extends AbstractRestControllerTest {
 
     }
 
+    @Test
+    void givenValidAirportId_whenDeleteAirportByIdFromAdmin_thenSuccess() throws Exception {
+
+        // Given
+        final String mockAirportId = UUID.randomUUID().toString();
+
+        // When
+        doNothing().when(airportService).deleteAirportById(mockAirportId);
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/v1/airports/{id}", mockAirportId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockAdminToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response").value(
+                        "Airport with id " + mockAirportId + "is deleted")
+                );
+
+        // Verify
+        verify(airportService, times(1)).deleteAirportById(mockAirportId);
+
+    }
+
+    @Test
+    void givenValidAirportId_whenDeleteAirportByIdFromUser_thenForbidden() throws Exception {
+
+        // Given
+        final String mockAirportId = UUID.randomUUID().toString();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/v1/airports/{id}", mockAirportId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockUserToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isForbidden());
+
+        // Verify
+        verify(airportService, never()).deleteAirportById(mockAirportId);
+
+    }
+
+    @Test
+    void givenValidAirportId_whenNotAuthenticated_thenUnauthorized() throws Exception {
+
+        // Given
+        final String mockAirportId = UUID.randomUUID().toString();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/v1/airports/{id}", mockAirportId))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
+        // Verify
+        verify(airportService, never()).deleteAirportById(mockAirportId);
+
+    }
+
+    @Test
+    void givenInvalidTaskId_whenAdminDeletesTask_thenTaskNotFoundException() throws Exception {
+
+        // Given
+        final String mockAirportId = UUID.randomUUID().toString();
+        final String expectedMessage = "Airport not found!\n";
+
+        // When
+        doThrow(new AirportNotFoundException())
+                .when(airportService).deleteAirportById(mockAirportId);
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/v1/airports/{id}", mockAirportId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockAdminToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("NOT_FOUND"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(expectedMessage));
+
+        // Verify
+        verify(airportService, times(1)).deleteAirportById(mockAirportId);
+
+    }
+
 
 }

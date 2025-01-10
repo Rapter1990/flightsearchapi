@@ -5,15 +5,12 @@ import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.dto.request.CreateAirportRequest;
 import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
-import com.example.demo.flight.service.airport.AirportCreateService;
-import com.example.demo.flight.service.airport.AirportReadService;
-import com.example.demo.flight.service.airport.AirportService;
-import com.example.demo.flight.service.airport.AirportUpdateService;
+import com.example.demo.flight.service.airport.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * Service interface for managing an airport in the system.
+ * Service implementation for managing an airport in the system.
  */
 @Service
 @RequiredArgsConstructor
@@ -22,6 +19,7 @@ public class AirportServiceImpl implements AirportService {
     private final AirportCreateService airportCreateService;
     private final AirportReadService airportReadService;
     private final AirportUpdateService airportUpdateService;
+    private final AirportDeleteService airportDeleteService;
 
     /**
      * Create a new airport to the database.
@@ -66,6 +64,16 @@ public class AirportServiceImpl implements AirportService {
     @Override
     public Airport updateAirportById(String id, UpdateAirportRequest updateAirportRequest) {
         return airportUpdateService.updateAirportById(id,updateAirportRequest);
+    }
+
+    /**
+     * Deletes an airport by its ID.
+     *
+     * @param id the ID of the airport to be deleted.
+     */
+    @Override
+    public void deleteAirportById(String id) {
+        airportDeleteService.deleteAirportById(id);
     }
 
 

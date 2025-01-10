@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * Service interface for creating an airport in the system.
+ * Service implementation for creating an airport in the system.
  */
 @Service
 @RequiredArgsConstructor

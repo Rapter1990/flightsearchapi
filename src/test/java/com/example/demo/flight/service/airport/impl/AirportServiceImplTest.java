@@ -14,6 +14,7 @@ import com.example.demo.flight.model.dto.request.CreateAirportRequest;
 import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
 import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.service.airport.AirportCreateService;
+import com.example.demo.flight.service.airport.AirportDeleteService;
 import com.example.demo.flight.service.airport.AirportReadService;
 import com.example.demo.flight.service.airport.AirportUpdateService;
 import org.junit.jupiter.api.Test;
@@ -49,6 +50,9 @@ class AirportServiceImplTest extends AbstractBaseServiceTest {
 
     @Mock
     private AirportUpdateService airportUpdateService;
+
+    @Mock
+    private AirportDeleteService airportDeleteService;
 
     @Test
     void givenValidCreateAirportRequest_whenCreateAirport_thenReturnCreatedAirport() {
@@ -180,5 +184,23 @@ class AirportServiceImplTest extends AbstractBaseServiceTest {
         verify(airportUpdateService,times(1)).updateAirportById(mockId, mockUpdateAirportRequest);
 
     }
+
+    @Test
+    void givenValidAirportId_whenDeleteAirportById_thenDeleteAirportSuccessfully() {
+
+        // Given
+        final String airportId = UUID.randomUUID().toString();
+
+        // When
+        doNothing().when(airportDeleteService).deleteAirportById(airportId);
+
+        // Then
+        airportService.deleteAirportById(airportId);
+
+        // Verify
+        verify(airportDeleteService, times(1)).deleteAirportById(airportId);
+
+    }
+
 
 }

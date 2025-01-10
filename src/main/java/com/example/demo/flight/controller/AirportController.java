@@ -117,11 +117,11 @@ public class AirportController {
     }
 
     /**
-     * Updates an existing task by its ID.
+     * Updates an existing airport by its ID.
      *
-     * @param id the ID of the task to be updated.
-     * @param updateAirportRequest the request body containing the updated task details.
-     * @return a response containing the updated task details.
+     * @param id the ID of the airport to be updated.
+     * @param updateAirportRequest the request body containing the updated airport details.
+     * @return a response containing the updated airport details.
      */
     @Operation(
             summary = "Update an airport",
@@ -145,6 +145,33 @@ public class AirportController {
         final AirportResponse response = airportToAirportResponseMapper.map(airport);
 
         return CustomResponse.successOf(response);
+
+    }
+
+    /**
+     * Deletes a airport by its ID.
+     *
+     * @param id the ID of the airport to be deleted.
+     * @return a response containing a success message.
+     */
+    @Operation(
+            summary = "Delete an airport",
+            description = "Deletes a airport by its ID. Accessible by ADMIN only.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Airport successfully deleted"),
+                    @ApiResponse(responseCode = "400", description = "Invalid update details provided"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized, authentication is required"),
+                    @ApiResponse(responseCode = "403", description = "Access forbidden"),
+                    @ApiResponse(responseCode = "404", description = "Airport not found")
+            }
+    )
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public CustomResponse<String> deleteAirportById(@PathVariable @Valid @UUID final String id){
+
+        airportService.deleteAirportById(id);
+
+        return CustomResponse.successOf("Airport with id "+ id + "is deleted");
 
     }
 
