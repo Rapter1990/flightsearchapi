@@ -40,32 +40,5 @@ public class BaseEntity {
     @Field(name = "updatedBy")
     private String updatedBy;
 
-    /**
-     * Sets the createdBy and createdAt fields before persisting the entity.
-     * If no authenticated user is found, sets createdBy to "anonymousUser".
-     */
-    public void prePersist() {
-        this.createdBy = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
-                .map(Authentication::getPrincipal)
-                .filter(user -> !"anonymousUser".equals(user))
-                .map(Jwt.class::cast)
-                .map(jwt -> jwt.getClaim(TokenClaims.USER_EMAIL.getValue()).toString())
-                .orElse("anonymousUser");
-        this.createdAt = LocalDateTime.now();
-    }
-
-    /**
-     * Sets the updatedBy and updatedAt fields before updating the entity.
-     * If no authenticated user is found, sets updatedBy to "anonymousUser".
-     */
-    public void preUpdate() {
-        this.updatedBy = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
-                .map(Authentication::getPrincipal)
-                .filter(user -> !"anonymousUser".equals(user))
-                .map(Jwt.class::cast)
-                .map(jwt -> jwt.getClaim(TokenClaims.USER_EMAIL.getValue()).toString())
-                .orElse("anonymousUser");
-        this.updatedAt = LocalDateTime.now();
-    }
 
 }
