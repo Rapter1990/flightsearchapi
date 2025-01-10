@@ -23,10 +23,6 @@ import java.util.List;
  * Global exception handler for handling various types of exceptions across the application.
  * This class provides centralized error handling for the entire application and returns custom error responses.
  */
-/**
- * Global exception handler for handling various types of exceptions across the application.
- * This class provides centralized error handling for the entire application and returns custom error responses.
- */
 @RestControllerAdvice
 class GlobalExceptionHandler {
 
