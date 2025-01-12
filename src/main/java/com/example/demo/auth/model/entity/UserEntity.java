@@ -26,7 +26,7 @@ public class UserEntity extends BaseEntity {
 
     @Id
     @Indexed(unique = true)
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
     @Field(name = "EMAIL")
     @Indexed(unique = true)

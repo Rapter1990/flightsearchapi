@@ -21,7 +21,7 @@ public class InvalidTokenEntity extends BaseEntity {
 
     @Id
     @Indexed(unique = true)
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
     @Field(name = "TOKEN_ID")
     private String tokenId;

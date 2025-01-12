@@ -21,7 +21,7 @@ public class AirportEntity extends BaseEntity {
 
     @Id
     @Indexed(unique = true)
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
     @Field(name = "AIRPORT_NAME")
     private String name;
