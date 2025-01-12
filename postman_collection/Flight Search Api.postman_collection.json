@@ -727,6 +727,106 @@
 											"response": []
 										}
 									]
+								},
+								{
+									"name": "Update Airport By Id",
+									"item": [
+										{
+											"name": "Update Airport By Existing Id",
+											"request": {
+												"method": "PUT",
+												"header": []
+											},
+											"response": []
+										},
+										{
+											"name": "Update Airport By Non Existing Id",
+											"request": {
+												"method": "PUT",
+												"header": []
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Delete Airport By Id",
+									"item": [
+										{
+											"name": "Delete Airport By Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/airports/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "c372fd58-a4c2-4c7c-9471-e07c689204d4"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Airport By Non Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/airports/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "c372fd58-a4c2-4c7c-9471-e07c689204d5"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						},
