@@ -10,6 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.UUID;
 
+/**
+ * Represents an entity for storing invalidated tokens in MongoDB.
+ * Each token is uniquely identified by {@code tokenId}.
+ * Extends {@link BaseEntity} for common timestamp fields.
+ */
 @Getter
 @Setter
 @SuperBuilder

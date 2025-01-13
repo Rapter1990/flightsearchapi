@@ -11,6 +11,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Represents a log entity stored in the MongoDB {@code log-collection}.
+ * Captures details such as {@code message}, {@code endpoint}, {@code status}, and {@code time}.
+ * Extends {@link BaseEntity} for common timestamp fields.
+ */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = false)

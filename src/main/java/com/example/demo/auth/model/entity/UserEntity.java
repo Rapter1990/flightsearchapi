@@ -15,6 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Represents a user entity in the system, storing personal and authentication details.
+ * Mapped to the MongoDB {@code user-collection}, with {@code id} as the unique identifier.
+ * Extends {@link BaseEntity}, inheriting common properties like timestamps.
+ */
 @Getter
 @Setter
 @SuperBuilder

@@ -10,6 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.UUID;
 
+/**
+ * Represents an airport entity stored in the MongoDB {@code airport-collection}.
+ * Contains airport details such as {@code name} and {@code cityName}.
+ * Extends {@link BaseEntity} for common timestamp fields.
+ */
 @Getter
 @Setter
 @SuperBuilder
