@@ -960,12 +960,87 @@
 							"name": "admin",
 							"item": [
 								{
-									"name": "New Request",
-									"request": {
-										"method": "GET",
-										"header": []
-									},
-									"response": []
+									"name": "Create Flight",
+									"item": [
+										{
+											"name": "Create Flight",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"fromAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n  \"toAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n  \"departureTime\": \"2025-01-15T08:00:00\",\r\n  \"arrivalTime\": \"2025-01-15T11:00:00\",\r\n  \"price\": 299.99\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Flight with ValidArrivalTime Exception",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"fromAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n  \"toAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n  \"departureTime\": \"2025-01-15T11:00:00\",\r\n  \"arrivalTime\": \"2025-01-15T08:00:00\",\r\n  \"price\": 299.99\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights"
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						},
