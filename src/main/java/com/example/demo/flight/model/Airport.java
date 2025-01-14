@@ -8,9 +8,8 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 /**
- * Represents a task in the system with basic properties such as an identifier and a name.
- * This class extends {@link BaseDomainModel} and provides functionality to model a task
- * in the application.
+ * Represents an airport in the system, with properties such as its identifier, name, and city.
+ * Extends {@link BaseDomainModel} to inherit common domain model attributes and behavior.
  */
 @NoArgsConstructor
 @AllArgsConstructor

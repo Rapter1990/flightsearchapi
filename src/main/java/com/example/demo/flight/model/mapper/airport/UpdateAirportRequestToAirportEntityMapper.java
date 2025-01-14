@@ -1,7 +1,7 @@
-package com.example.demo.flight.model.mapper;
+package com.example.demo.flight.model.mapper.airport;
 
 import com.example.demo.common.model.mapper.BaseMapper;
-import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.UpdateAirportRequest;
 import com.example.demo.flight.model.entity.AirportEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
@@ -13,7 +13,7 @@ import org.mapstruct.factory.Mappers;
  * between {@link UpdateAirportRequest} and {@link AirportEntity}.
  */
 @Mapper
-public interface  UpdateAirportRequestToAirportEntityMapper extends BaseMapper<UpdateAirportRequest, AirportEntity> {
+public interface UpdateAirportRequestToAirportEntityMapper extends BaseMapper<UpdateAirportRequest, AirportEntity> {
 
     /**
      * Updates the fields of an existing {@link AirportEntity} with data from an {@link UpdateAirportRequest}.

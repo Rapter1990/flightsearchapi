@@ -1,7 +1,7 @@
-package com.example.demo.flight.model.mapper;
+package com.example.demo.flight.model.mapper.airport;
 
 import com.example.demo.common.model.mapper.BaseMapper;
-import com.example.demo.flight.model.dto.request.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.CreateAirportRequest;
 import com.example.demo.flight.model.entity.AirportEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;

@@ -1,4 +1,4 @@
-package com.example.demo.flight.model.mapper;
+package com.example.demo.flight.model.mapper.airport;
 
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.entity.AirportEntity;

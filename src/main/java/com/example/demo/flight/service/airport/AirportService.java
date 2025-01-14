@@ -3,8 +3,8 @@ package com.example.demo.flight.service.airport;
 import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Airport;
-import com.example.demo.flight.model.dto.request.CreateAirportRequest;
-import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.UpdateAirportRequest;
 
 /**
  * Service interface for managing an airport in the system.

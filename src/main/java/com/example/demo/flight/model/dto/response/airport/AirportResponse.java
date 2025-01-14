@@ -1,4 +1,4 @@
-package com.example.demo.flight.model.dto.response;
+package com.example.demo.flight.model.dto.response.airport;
 
 import lombok.*;
 

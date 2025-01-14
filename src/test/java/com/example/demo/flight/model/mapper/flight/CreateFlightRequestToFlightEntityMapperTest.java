@@ -1,0 +1,177 @@
+package com.example.demo.flight.model.mapper.flight;
+
+import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
+import com.example.demo.flight.model.entity.AirportEntity;
+import com.example.demo.flight.model.entity.FlightEntity;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+class CreateFlightRequestToFlightEntityMapperTest {
+
+    private final CreateFlightRequestToFlightEntityMapperImpl mapper = new CreateFlightRequestToFlightEntityMapperImpl();
+
+    @Test
+    void testMapCreateFlightRequestNull() {
+
+        FlightEntity result = mapper.map((CreateFlightRequest) null);
+
+        assertNull(result);
+
+    }
+
+    @Test
+    void testMapCreateFlightRequestListNull() {
+
+        List<FlightEntity> result = mapper.map((Collection<CreateFlightRequest>) null);
+
+        assertNull(result);
+
+    }
+
+    @Test
+    void testMapCreateFlightRequestListEmpty() {
+
+        List<FlightEntity> result = mapper.map(Collections.emptyList());
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+
+    }
+
+    @Test
+    void testMapCreateFlightRequestListWithNullElements() {
+
+        CreateFlightRequest request1 = CreateFlightRequest.builder()
+                .id("1234")
+                .departureTime(LocalDateTime.now())
+                .arrivalTime(LocalDateTime.now().plusHours(2))
+                .price(200.0)
+                .build();
+        CreateFlightRequest request2 = null;
+
+        List<CreateFlightRequest> requests = Arrays.asList(request1, request2);
+
+        List<FlightEntity> result = mapper.map(requests);
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertNotNull(result.get(0));
+        assertNull(result.get(1));
+
+    }
+
+    @Test
+    void testMapCreateFlightRequestForSaving() {
+
+        CreateFlightRequest request = CreateFlightRequest.builder()
+                .id("1234")
+                .departureTime(LocalDateTime.now())
+                .arrivalTime(LocalDateTime.now().plusHours(2))
+                .price(200.0)
+                .build();
+
+        FlightEntity result = mapper.map(request);
+
+        assertNotNull(result);
+        assertEquals(request.getId(), result.getId());
+        assertEquals(request.getDepartureTime(), result.getDepartureTime());
+        assertEquals(request.getArrivalTime(), result.getArrivalTime());
+        assertEquals(request.getPrice(), result.getPrice());
+
+    }
+
+    @Test
+    void testMapCreateFlightRequestListWithValues() {
+
+        CreateFlightRequest request1 = CreateFlightRequest.builder()
+                .id("1234")
+                .departureTime(LocalDateTime.now())
+                .arrivalTime(LocalDateTime.now().plusHours(2))
+                .price(200.0)
+                .build();
+
+        CreateFlightRequest request2 = CreateFlightRequest.builder()
+                .id("5678")
+                .departureTime(LocalDateTime.now())
+                .arrivalTime(LocalDateTime.now().plusHours(3))
+                .price(300.0)
+                .build();
+
+        List<CreateFlightRequest> requests = Arrays.asList(request1, request2);
+
+        List<FlightEntity> result = mapper.map(requests);
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals(request1.getId(), result.get(0).getId());
+        assertEquals(request2.getId(), result.get(1).getId());
+        assertEquals(request1.getPrice(), result.get(0).getPrice());
+        assertEquals(request2.getPrice(), result.get(1).getPrice());
+
+    }
+
+    @Test
+    void testMapCreateFlightRequestForSavingWithNullValues() {
+
+        CreateFlightRequest request = CreateFlightRequest.builder()
+                .id("1234")
+                .departureTime(null)
+                .arrivalTime(null)
+                .price(null)
+                .build();
+
+        FlightEntity result = mapper.map(request);
+
+        assertNotNull(result);
+        assertEquals(request.getId(), result.getId());
+        assertNull(result.getDepartureTime());
+        assertNull(result.getArrivalTime());
+        assertNull(result.getPrice());
+
+    }
+
+    @Test
+    void testMapCreateFlightRequestListWithEdgeCaseValues() {
+
+        CreateFlightRequest request = CreateFlightRequest.builder()
+                .id("0")
+                .departureTime(null)
+                .arrivalTime(null)
+                .price(0.0)
+                .build();
+
+        FlightEntity result = mapper.map(request);
+
+        assertNotNull(result);
+        assertEquals(request.getId(), result.getId());
+        assertNull(result.getDepartureTime());
+        assertNull(result.getArrivalTime());
+        assertEquals(0.0, result.getPrice());
+
+    }
+
+    @Test
+    void testMapCreateFlightRequestForSavingWithNullFields() {
+
+        CreateFlightRequest request = CreateFlightRequest.builder()
+                .id(null)
+                .departureTime(null)
+                .arrivalTime(null)
+                .price(0.0)
+                .build();
+
+        FlightEntity result = mapper.map(request);
+
+        assertNotNull(result);
+        assertNull(result.getId());
+        assertNull(result.getDepartureTime());
+        assertNull(result.getArrivalTime());
+        assertEquals(0.0, result.getPrice());
+
+
+    }
+
+}

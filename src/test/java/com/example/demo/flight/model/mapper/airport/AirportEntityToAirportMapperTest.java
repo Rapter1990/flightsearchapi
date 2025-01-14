@@ -1,7 +1,8 @@
-package com.example.demo.flight.model.mapper;
+package com.example.demo.flight.model.mapper.airport;
 
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.entity.AirportEntity;
+import com.example.demo.flight.model.mapper.airport.AirportEntityToAirportMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

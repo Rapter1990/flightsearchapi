@@ -1,7 +1,7 @@
 package com.example.demo.flight.service.airport;
 
 import com.example.demo.flight.model.Airport;
-import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.UpdateAirportRequest;
 
 /**
  * Service interface for updating an airport in the system.

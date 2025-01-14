@@ -1,7 +1,7 @@
 package com.example.demo.flight.service.airport;
 
 import com.example.demo.flight.model.Airport;
-import com.example.demo.flight.model.dto.request.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.CreateAirportRequest;
 
 /**
  * Service interface for creating an airport in the system.

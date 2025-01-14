@@ -38,18 +38,20 @@ class GlobalExceptionHandler {
 
         List<CustomError.CustomSubError> subErrors = new ArrayList<>();
 
-        ex.getBindingResult().getAllErrors().forEach(
-                error -> {
-                    String fieldName = ((FieldError) error).getField();
-                    String message = error.getDefaultMessage();
-                    subErrors.add(
-                            CustomError.CustomSubError.builder()
-                                    .field(fieldName)
-                                    .message(message)
-                                    .build()
-                    );
-                }
-        );
+        ex.getBindingResult().getAllErrors().forEach(error -> {
+            // Determine the field name, checking if it's a FieldError or not
+            String fieldName = error instanceof FieldError
+                    ? ((FieldError) error).getField()
+                    : error.getObjectName();  // Fallback to object name if not FieldError
+
+            String message = error.getDefaultMessage();
+            subErrors.add(
+                    CustomError.CustomSubError.builder()
+                            .field(fieldName)
+                            .message(message)
+                            .build()
+            );
+        });
 
         CustomError customError = CustomError.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)

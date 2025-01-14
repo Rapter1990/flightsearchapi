@@ -1,4 +1,4 @@
-package com.example.demo.flight.model.dto.request;
+package com.example.demo.flight.model.dto.request.airport;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

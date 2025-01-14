@@ -9,9 +9,8 @@ import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.CustomPaging;
 import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Airport;
-import com.example.demo.flight.model.dto.request.AirportPagingRequest;
-import com.example.demo.flight.model.dto.request.CreateAirportRequest;
-import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.UpdateAirportRequest;
 import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.service.airport.AirportCreateService;
 import com.example.demo.flight.service.airport.AirportDeleteService;
@@ -20,13 +19,9 @@ import com.example.demo.flight.service.airport.AirportUpdateService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;

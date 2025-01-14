@@ -1,8 +1,8 @@
-package com.example.demo.flight.model.mapper;
+package com.example.demo.flight.model.mapper.airport;
 
 import com.example.demo.common.model.mapper.BaseMapper;
 import com.example.demo.flight.model.Airport;
-import com.example.demo.flight.model.dto.response.AirportResponse;
+import com.example.demo.flight.model.dto.response.airport.AirportResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

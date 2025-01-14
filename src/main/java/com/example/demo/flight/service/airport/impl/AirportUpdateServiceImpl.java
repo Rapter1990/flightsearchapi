@@ -2,10 +2,10 @@ package com.example.demo.flight.service.airport.impl;
 
 import com.example.demo.flight.exception.AirportNotFoundException;
 import com.example.demo.flight.model.Airport;
-import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.UpdateAirportRequest;
 import com.example.demo.flight.model.entity.AirportEntity;
-import com.example.demo.flight.model.mapper.AirportEntityToAirportMapper;
-import com.example.demo.flight.model.mapper.UpdateAirportRequestToAirportEntityMapper;
+import com.example.demo.flight.model.mapper.airport.AirportEntityToAirportMapper;
+import com.example.demo.flight.model.mapper.airport.UpdateAirportRequestToAirportEntityMapper;
 import com.example.demo.flight.repository.AirportRepository;
 import com.example.demo.flight.service.airport.AirportUpdateService;
 import com.example.demo.flight.utils.AirportUtilityClass;

@@ -1,10 +1,10 @@
 package com.example.demo.flight.service.airport.impl;
 
 import com.example.demo.flight.model.Airport;
-import com.example.demo.flight.model.dto.request.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.CreateAirportRequest;
 import com.example.demo.flight.model.entity.AirportEntity;
-import com.example.demo.flight.model.mapper.AirportEntityToAirportMapper;
-import com.example.demo.flight.model.mapper.CreateAirportRequestToAirportEntityMapper;
+import com.example.demo.flight.model.mapper.airport.AirportEntityToAirportMapper;
+import com.example.demo.flight.model.mapper.airport.CreateAirportRequestToAirportEntityMapper;
 import com.example.demo.flight.repository.AirportRepository;
 import com.example.demo.flight.service.airport.AirportCreateService;
 import com.example.demo.flight.utils.AirportUtilityClass;
@@ -38,9 +38,10 @@ public class AirportCreateServiceImpl implements AirportCreateService {
         AirportUtilityClass.checkAirportNameUniqueness(airportRepository, createAirportRequest.getName());
 
         AirportEntity airportEntityToBeSaved = createAirportRequestToAirportEntityMapper.mapForSaving(createAirportRequest);
-        airportRepository.save(airportEntityToBeSaved);
 
-        return airportEntityToAirportMapper.map(airportEntityToBeSaved);
+        AirportEntity savedAirportEntity = airportRepository.save(airportEntityToBeSaved);
+
+        return airportEntityToAirportMapper.map(savedAirportEntity);
 
     }
 

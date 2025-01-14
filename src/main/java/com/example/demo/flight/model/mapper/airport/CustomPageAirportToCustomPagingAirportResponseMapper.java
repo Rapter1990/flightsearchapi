@@ -1,9 +1,9 @@
-package com.example.demo.flight.model.mapper;
+package com.example.demo.flight.model.mapper.airport;
 
 import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.dto.response.CustomPagingResponse;
 import com.example.demo.flight.model.Airport;
-import com.example.demo.flight.model.dto.response.AirportResponse;
+import com.example.demo.flight.model.dto.response.airport.AirportResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -32,7 +32,7 @@ public interface CustomPageAirportToCustomPagingAirportResponseMapper {
         }
 
         return CustomPagingResponse.<AirportResponse>builder()
-                .content(toTaskResponseList(airportPage.getContent()))
+                .content(toAirportResponseList(airportPage.getContent()))
                 .totalElementCount(airportPage.getTotalElementCount())
                 .totalPageCount(airportPage.getTotalPageCount())
                 .pageNumber(airportPage.getPageNumber())
@@ -47,7 +47,7 @@ public interface CustomPageAirportToCustomPagingAirportResponseMapper {
      * @param airports the list of {@link Airport} entities
      * @return a list of {@link AirportResponse} DTOs, or {@code null} if {@code airports} is {@code null}
      */
-    default List<AirportResponse> toTaskResponseList(List<Airport> airports) {
+    default List<AirportResponse> toAirportResponseList(List<Airport> airports) {
 
         if (airports == null) {
             return null;

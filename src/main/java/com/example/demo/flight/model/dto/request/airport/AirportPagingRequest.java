@@ -1,4 +1,4 @@
-package com.example.demo.flight.model.dto.request;
+package com.example.demo.flight.model.dto.request.airport;
 
 import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import lombok.Getter;

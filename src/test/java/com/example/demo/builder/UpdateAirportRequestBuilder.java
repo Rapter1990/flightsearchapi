@@ -1,7 +1,6 @@
 package com.example.demo.builder;
 
-import com.example.demo.flight.model.dto.request.CreateAirportRequest;
-import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.UpdateAirportRequest;
 
 /**
  * A builder class for creating instances of {@link UpdateAirportRequestBuilder} with specific properties set.

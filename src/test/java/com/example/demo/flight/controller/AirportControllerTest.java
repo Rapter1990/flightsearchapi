@@ -11,13 +11,13 @@ import com.example.demo.common.model.dto.response.CustomPagingResponse;
 import com.example.demo.flight.exception.AirportNameAlreadyExistException;
 import com.example.demo.flight.exception.AirportNotFoundException;
 import com.example.demo.flight.model.Airport;
-import com.example.demo.flight.model.dto.request.AirportPagingRequest;
-import com.example.demo.flight.model.dto.request.CreateAirportRequest;
-import com.example.demo.flight.model.dto.request.UpdateAirportRequest;
-import com.example.demo.flight.model.dto.response.AirportResponse;
+import com.example.demo.flight.model.dto.request.airport.AirportPagingRequest;
+import com.example.demo.flight.model.dto.request.airport.CreateAirportRequest;
+import com.example.demo.flight.model.dto.request.airport.UpdateAirportRequest;
+import com.example.demo.flight.model.dto.response.airport.AirportResponse;
 import com.example.demo.flight.model.entity.AirportEntity;
-import com.example.demo.flight.model.mapper.AirportToAirportResponseMapper;
-import com.example.demo.flight.model.mapper.CustomPageAirportToCustomPagingAirportResponseMapper;
+import com.example.demo.flight.model.mapper.airport.AirportToAirportResponseMapper;
+import com.example.demo.flight.model.mapper.airport.CustomPageAirportToCustomPagingAirportResponseMapper;
 import com.example.demo.flight.service.airport.AirportService;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
