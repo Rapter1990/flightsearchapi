@@ -45,7 +45,6 @@ class CreateFlightRequestToFlightEntityMapperTest {
     void testMapCreateFlightRequestListWithNullElements() {
 
         CreateFlightRequest request1 = CreateFlightRequest.builder()
-                .id("1234")
                 .departureTime(LocalDateTime.now())
                 .arrivalTime(LocalDateTime.now().plusHours(2))
                 .price(200.0)
@@ -67,7 +66,6 @@ class CreateFlightRequestToFlightEntityMapperTest {
     void testMapCreateFlightRequestForSaving() {
 
         CreateFlightRequest request = CreateFlightRequest.builder()
-                .id("1234")
                 .departureTime(LocalDateTime.now())
                 .arrivalTime(LocalDateTime.now().plusHours(2))
                 .price(200.0)
@@ -76,7 +74,6 @@ class CreateFlightRequestToFlightEntityMapperTest {
         FlightEntity result = mapper.map(request);
 
         assertNotNull(result);
-        assertEquals(request.getId(), result.getId());
         assertEquals(request.getDepartureTime(), result.getDepartureTime());
         assertEquals(request.getArrivalTime(), result.getArrivalTime());
         assertEquals(request.getPrice(), result.getPrice());
@@ -87,14 +84,12 @@ class CreateFlightRequestToFlightEntityMapperTest {
     void testMapCreateFlightRequestListWithValues() {
 
         CreateFlightRequest request1 = CreateFlightRequest.builder()
-                .id("1234")
                 .departureTime(LocalDateTime.now())
                 .arrivalTime(LocalDateTime.now().plusHours(2))
                 .price(200.0)
                 .build();
 
         CreateFlightRequest request2 = CreateFlightRequest.builder()
-                .id("5678")
                 .departureTime(LocalDateTime.now())
                 .arrivalTime(LocalDateTime.now().plusHours(3))
                 .price(300.0)
@@ -106,8 +101,6 @@ class CreateFlightRequestToFlightEntityMapperTest {
 
         assertNotNull(result);
         assertEquals(2, result.size());
-        assertEquals(request1.getId(), result.get(0).getId());
-        assertEquals(request2.getId(), result.get(1).getId());
         assertEquals(request1.getPrice(), result.get(0).getPrice());
         assertEquals(request2.getPrice(), result.get(1).getPrice());
 
@@ -117,7 +110,6 @@ class CreateFlightRequestToFlightEntityMapperTest {
     void testMapCreateFlightRequestForSavingWithNullValues() {
 
         CreateFlightRequest request = CreateFlightRequest.builder()
-                .id("1234")
                 .departureTime(null)
                 .arrivalTime(null)
                 .price(null)
@@ -126,7 +118,6 @@ class CreateFlightRequestToFlightEntityMapperTest {
         FlightEntity result = mapper.map(request);
 
         assertNotNull(result);
-        assertEquals(request.getId(), result.getId());
         assertNull(result.getDepartureTime());
         assertNull(result.getArrivalTime());
         assertNull(result.getPrice());
@@ -137,7 +128,6 @@ class CreateFlightRequestToFlightEntityMapperTest {
     void testMapCreateFlightRequestListWithEdgeCaseValues() {
 
         CreateFlightRequest request = CreateFlightRequest.builder()
-                .id("0")
                 .departureTime(null)
                 .arrivalTime(null)
                 .price(0.0)
@@ -146,7 +136,6 @@ class CreateFlightRequestToFlightEntityMapperTest {
         FlightEntity result = mapper.map(request);
 
         assertNotNull(result);
-        assertEquals(request.getId(), result.getId());
         assertNull(result.getDepartureTime());
         assertNull(result.getArrivalTime());
         assertEquals(0.0, result.getPrice());
@@ -157,7 +146,6 @@ class CreateFlightRequestToFlightEntityMapperTest {
     void testMapCreateFlightRequestForSavingWithNullFields() {
 
         CreateFlightRequest request = CreateFlightRequest.builder()
-                .id(null)
                 .departureTime(null)
                 .arrivalTime(null)
                 .price(0.0)
@@ -166,7 +154,6 @@ class CreateFlightRequestToFlightEntityMapperTest {
         FlightEntity result = mapper.map(request);
 
         assertNotNull(result);
-        assertNull(result.getId());
         assertNull(result.getDepartureTime());
         assertNull(result.getArrivalTime());
         assertEquals(0.0, result.getPrice());

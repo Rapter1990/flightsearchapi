@@ -17,9 +17,6 @@ import java.time.LocalDateTime;
 @ValidArrivalTime
 public class CreateFlightRequest {
 
-    @NotBlank(message = "id field cannot be empty")
-    private String id;
-
     @NotBlank(message = "From airport ID field cannot be empty")
     private String fromAirportId;
 

@@ -31,7 +31,6 @@ public interface CreateFlightRequestToFlightEntityMapper extends BaseMapper<Crea
     @Named("mapForSaving")
     default FlightEntity mapForSaving(CreateFlightRequest request, AirportEntity fromAirport, AirportEntity toAirport) {
         return FlightEntity.builder()
-                .id(request.getId())
                 .fromAirport(fromAirport)
                 .toAirport(toAirport)
                 .departureTime(request.getDepartureTime())

@@ -47,7 +47,7 @@ class FlightControllerTest extends AbstractRestControllerTest {
                 .build();
 
         final Flight expectedFlight = Flight.builder()
-                .id(request.getId())
+                .id(UUID.randomUUID().toString())
                 .fromAirport(Airport.builder().id(request.getFromAirportId()).build())
                 .toAirport(Airport.builder().id(request.getToAirportId()).build())
                 .departureTime(request.getDepartureTime())

@@ -13,17 +13,11 @@ public class CreateFlightRequestBuilder extends BaseBuilder<CreateFlightRequest>
     public CreateFlightRequestBuilder() { super(CreateFlightRequest.class);}
 
     public CreateFlightRequestBuilder withValidFields() {
-        return this.withId("FLIGHT123")
-                .withFromAirportId("AIRPORT1")
+        return this.withFromAirportId("AIRPORT1")
                 .withToAirportId("AIRPORT2")
                 .withDepartureTime(LocalDateTime.of(2025, 1, 13, 10, 0))
                 .withArrivalTime(LocalDateTime.of(2025, 1, 13, 12, 0))
                 .withPrice(100.0);
-    }
-
-    public CreateFlightRequestBuilder withId(String id) {
-        data.setId(id);
-        return this;
     }
 
     public CreateFlightRequestBuilder withFromAirportId(String fromAirportId) {
