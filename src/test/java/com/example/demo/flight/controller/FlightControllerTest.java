@@ -3,15 +3,24 @@ package com.example.demo.flight.controller;
 import com.example.demo.base.AbstractRestControllerTest;
 import com.example.demo.builder.CreateFlightRequestBuilder;
 import com.example.demo.builder.FlightBuilder;
+import com.example.demo.builder.FlightEntityBuilder;
+import com.example.demo.common.model.CustomPage;
+import com.example.demo.common.model.CustomPaging;
+import com.example.demo.common.model.dto.response.CustomPagingResponse;
 import com.example.demo.flight.exception.FlightNotFoundException;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
+import com.example.demo.flight.model.dto.request.airport.AirportPagingRequest;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
 import com.example.demo.flight.model.dto.response.flight.FlightResponse;
+import com.example.demo.flight.model.entity.FlightEntity;
 import com.example.demo.flight.model.mapper.flight.CustomPageFlightToCustomPagingFlightResponseMapper;
 import com.example.demo.flight.model.mapper.flight.FlightToFlightResponseMapper;
 import com.example.demo.flight.service.flight.FlightService;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -20,7 +29,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -330,6 +341,168 @@ class FlightControllerTest extends AbstractRestControllerTest {
 
         // Verify
         verify(flightService, never()).getFlightById(mockFlightId);
+
+    }
+
+    @Test
+    void givenFlightPagingRequest_whenGetFlightsFromAdmin_thenReturnCustomPageFlight() throws Exception {
+
+        // Given
+        final AirportPagingRequest pagingRequest = AirportPagingRequest.builder()
+                .pagination(
+                        CustomPaging.builder()
+                                .pageSize(1)
+                                .pageNumber(1)
+                                .build()
+                ).build();
+
+        final String flightId = UUID.randomUUID().toString();
+
+        final FlightEntity expectedEntity = new FlightEntityBuilder()
+                .withId(flightId)
+                .withValidFields()
+                .build();
+
+        final List<FlightEntity> flightEntities = List.of(expectedEntity);
+
+        final Page<FlightEntity> flightEntityPage = new PageImpl<>(flightEntities, PageRequest.of(1, 1), flightEntities.size());
+
+        final List<Flight> flightDomainModels = flightEntities.stream()
+                .map(entity -> new Flight(
+                        entity.getId(),
+                        new Airport(entity.getFromAirport().getId(), entity.getFromAirport().getName(), entity.getFromAirport().getCityName()),
+                        new Airport(entity.getToAirport().getId(), entity.getToAirport().getName(), entity.getToAirport().getCityName()),
+                        entity.getDepartureTime(),
+                        entity.getArrivalTime(),
+                        entity.getPrice()
+                ))
+                .collect(Collectors.toList());
+
+        final CustomPage<Flight> flightPage = CustomPage.of(flightDomainModels, flightEntityPage);
+
+        final CustomPagingResponse<FlightResponse> expectedResponse =
+                customPageFlightToCustomPagingFlightResponseMapper.toPagingResponse(flightPage);
+
+        // When
+        when(flightService.getAllFlights(any(AirportPagingRequest.class))).thenReturn(flightPage);
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/flights")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(pagingRequest))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockAdminToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].id").value(expectedResponse.getContent().get(0).getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].fromAirport.id").value(expectedResponse.getContent().get(0).getFromAirport().getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].fromAirport.name").value(expectedResponse.getContent().get(0).getFromAirport().getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].fromAirport.cityName").value(expectedResponse.getContent().get(0).getFromAirport().getCityName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].toAirport.id").value(expectedResponse.getContent().get(0).getToAirport().getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].toAirport.name").value(expectedResponse.getContent().get(0).getToAirport().getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].toAirport.cityName").value(expectedResponse.getContent().get(0).getToAirport().getCityName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].price").value(expectedResponse.getContent().get(0).getPrice()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.pageNumber").value(expectedResponse.getPageNumber()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.pageSize").value(expectedResponse.getPageSize()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.totalElementCount").value(expectedResponse.getTotalElementCount()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.totalPageCount").value(expectedResponse.getTotalPageCount()));
+
+        // Verify
+        verify(flightService, times(1)).getAllFlights(any(AirportPagingRequest.class));
+
+    }
+
+    @Test
+    void givenFlightPagingRequest_whenGetFlightsFromUser_thenReturnCustomPageFlight() throws Exception {
+
+        // Given
+        final AirportPagingRequest pagingRequest = AirportPagingRequest.builder()
+                .pagination(
+                        CustomPaging.builder()
+                                .pageSize(1)
+                                .pageNumber(1)
+                                .build()
+                ).build();
+
+        final String flightId = UUID.randomUUID().toString();
+
+        final FlightEntity expectedEntity = new FlightEntityBuilder()
+                .withId(flightId)
+                .withValidFields()
+                .build();
+
+        final List<FlightEntity> flightEntities = List.of(expectedEntity);
+
+        final Page<FlightEntity> flightEntityPage = new PageImpl<>(flightEntities, PageRequest.of(1, 1), flightEntities.size());
+
+        final List<Flight> flightDomainModels = flightEntities.stream()
+                .map(entity -> new Flight(
+                        entity.getId(),
+                        new Airport(entity.getFromAirport().getId(), entity.getFromAirport().getName(), entity.getFromAirport().getCityName()),
+                        new Airport(entity.getToAirport().getId(), entity.getToAirport().getName(), entity.getToAirport().getCityName()),
+                        entity.getDepartureTime(),
+                        entity.getArrivalTime(),
+                        entity.getPrice()
+                ))
+                .collect(Collectors.toList());
+
+        final CustomPage<Flight> flightPage = CustomPage.of(flightDomainModels, flightEntityPage);
+
+        final CustomPagingResponse<FlightResponse> expectedResponse =
+                customPageFlightToCustomPagingFlightResponseMapper.toPagingResponse(flightPage);
+
+        // When
+        when(flightService.getAllFlights(any(AirportPagingRequest.class))).thenReturn(flightPage);
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/flights")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(pagingRequest))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockUserToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].id").value(expectedResponse.getContent().get(0).getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].fromAirport.id").value(expectedResponse.getContent().get(0).getFromAirport().getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].fromAirport.name").value(expectedResponse.getContent().get(0).getFromAirport().getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].fromAirport.cityName").value(expectedResponse.getContent().get(0).getFromAirport().getCityName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].toAirport.id").value(expectedResponse.getContent().get(0).getToAirport().getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].toAirport.name").value(expectedResponse.getContent().get(0).getToAirport().getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].toAirport.cityName").value(expectedResponse.getContent().get(0).getToAirport().getCityName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.content[0].price").value(expectedResponse.getContent().get(0).getPrice()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.pageNumber").value(expectedResponse.getPageNumber()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.pageSize").value(expectedResponse.getPageSize()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.totalElementCount").value(expectedResponse.getTotalElementCount()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.totalPageCount").value(expectedResponse.getTotalPageCount()));
+
+        // Verify
+        verify(flightService, times(1)).getAllFlights(any(AirportPagingRequest.class));
+
+    }
+
+    @Test
+    void givenFlightPagingRequest_whenUnauthorized_thenThrowUnauthorized() throws Exception {
+
+        // Given
+        final AirportPagingRequest pagingRequest = AirportPagingRequest.builder()
+                .pagination(
+                        CustomPaging.builder()
+                                .pageSize(1)
+                                .pageNumber(1)
+                                .build()
+                ).build();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/flights")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(pagingRequest)))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
+        // Verify
+        verify(flightService, never()).getAllFlights(any(AirportPagingRequest.class));
 
     }
 

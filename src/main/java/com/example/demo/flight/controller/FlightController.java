@@ -1,8 +1,11 @@
 package com.example.demo.flight.controller;
 
+import com.example.demo.common.model.CustomPage;
+import com.example.demo.common.model.dto.response.CustomPagingResponse;
 import com.example.demo.common.model.dto.response.CustomResponse;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
+import com.example.demo.flight.model.dto.request.airport.AirportPagingRequest;
 import com.example.demo.flight.model.dto.request.airport.CreateAirportRequest;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
 import com.example.demo.flight.model.dto.response.airport.AirportResponse;
@@ -90,6 +93,34 @@ public class FlightController {
 
         return CustomResponse.successOf(response);
 
+    }
+
+    /**
+     * Retrieves a paginated list of flights.
+     *
+     * @param request the request body containing pagination and sorting information.
+     * @return a paginated response containing a list of flights.
+     */
+    @Operation(
+            summary = "Get all flights",
+            description = "Retrieves a paginated list of flights. Accessible by both ADMIN and USER roles.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Flights successfully retrieved"),
+                    @ApiResponse(responseCode = "400", description = "Invalid flights details provided"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized, authentication is required"),
+                    @ApiResponse(responseCode = "403", description = "Access forbidden"),
+                    @ApiResponse(responseCode = "404", description = "Flight not found")
+            }
+    )
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    public CustomResponse<CustomPagingResponse<FlightResponse>> getAllFlights(@RequestBody @Valid final AirportPagingRequest request){
+        final CustomPage<Flight> flightCustomPage= flightService.getAllFlights(request);
+
+        final CustomPagingResponse<FlightResponse> response = customPageFlightToCustomPagingFlightResponseMapper
+                .toPagingResponse(flightCustomPage);
+
+        return CustomResponse.successOf(response);
     }
 
 }

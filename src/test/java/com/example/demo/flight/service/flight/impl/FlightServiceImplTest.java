@@ -4,6 +4,9 @@ import com.example.demo.base.AbstractBaseServiceTest;
 import com.example.demo.builder.AirportBuilder;
 import com.example.demo.builder.CreateFlightRequestBuilder;
 import com.example.demo.builder.FlightBuilder;
+import com.example.demo.common.model.CustomPage;
+import com.example.demo.common.model.CustomPaging;
+import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
@@ -13,8 +16,10 @@ import com.example.demo.flight.service.flight.FlightReadService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -102,6 +107,44 @@ class FlightServiceImplTest extends AbstractBaseServiceTest {
 
         // Verify
         verify(flightReadService, times(1)).getFlightById(flightId);
+    }
+
+    @Test
+    void givenValidPagingRequest_whenGetAllFlights_thenReturnCustomPageOfFlights() {
+
+        // Given
+        CustomPaging paging = CustomPaging.builder()
+                .pageSize(1)
+                .pageNumber(1)
+                .build();
+
+        CustomPagingRequest pagingRequest = mock(CustomPagingRequest.class);
+
+        List<Flight> flightList = List.of(new Flight());
+        CustomPage<Flight> expectedPage = CustomPage.<Flight>builder()
+                .content(flightList)
+                .pageNumber(1)
+                .pageSize(1)
+                .totalElementCount(1L)
+                .totalPageCount(1)
+                .build();
+
+
+        // When
+        when(pagingRequest.getPagination()).thenReturn(paging);
+        when(pagingRequest.toPageable()).thenReturn(PageRequest.of(paging.getPageNumber(), paging.getPageSize()));
+        when(flightReadService.getAllFlights(pagingRequest)).thenReturn(expectedPage);
+
+        // Then
+        CustomPage<Flight> result = flightService.getAllFlights(pagingRequest);
+
+        assertNotNull(result);
+        assertEquals(expectedPage, result);
+        assertEquals(1, result.getContent().size());
+
+        // Verify
+        verify(flightReadService, times(1)).getAllFlights(pagingRequest);
+
     }
 
 

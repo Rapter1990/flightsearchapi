@@ -1,5 +1,7 @@
 package com.example.demo.flight.service.flight.impl;
 
+import com.example.demo.common.model.CustomPage;
+import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
 import com.example.demo.flight.service.flight.FlightCreateService;
@@ -38,6 +40,17 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public Flight getFlightById(String id) {
         return flightReadService.getFlightById(id);
+    }
+
+    /**
+     * Retrieves all flights with pagination support.
+     *
+     * @param customPagingRequest the request object containing paging parameters (e.g., page size, page number).
+     * @return a {@link CustomPage} of flights, containing a list of flights and pagination details.
+     */
+    @Override
+    public CustomPage<Flight> getAllFlights(CustomPagingRequest customPagingRequest) {
+        return flightReadService.getAllFlights(customPagingRequest);
     }
 
 }

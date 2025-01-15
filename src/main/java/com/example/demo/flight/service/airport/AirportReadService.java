@@ -18,10 +18,10 @@ public interface AirportReadService {
     Airport getAirportById(final String id);
 
     /**
-     * Retrieves all tasks with pagination support.
+     * Retrieves all airports with pagination support.
      *
      * @param customPagingRequest the request object containing paging parameters (e.g., page size, page number).
-     * @return a {@link CustomPage} of tasks, containing a list of tasks and pagination details.
+     * @return a {@link CustomPage} of airports, containing a list of airports and pagination details.
      */
     CustomPage<Airport> getAllAirports(final CustomPagingRequest customPagingRequest);
 
