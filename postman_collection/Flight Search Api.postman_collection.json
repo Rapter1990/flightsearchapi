@@ -1041,12 +1041,264 @@
 											"response": []
 										}
 									]
+								},
+								{
+									"name": "Get Flight By Id",
+									"item": [
+										{
+											"name": "Get Flight By Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "8b761b7e-96e3-4e00-b286-a7e32ddf689b"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Flight By Non Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "8b761b7e-96e3-4e00-b286-a7e32ddf6891"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Get All Flights with Pagination",
+									"item": [
+										{
+											"name": "Get All Flights with Pagination",
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"pagination\": {\r\n    \"pageNumber\": 1,\r\n    \"pageSize\": 5\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights"
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						},
 						{
 							"name": "user",
 							"item": [
+								{
+									"name": "Get Flight By Id",
+									"item": [
+										{
+											"name": "Get Flight By Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "8b761b7e-96e3-4e00-b286-a7e32ddf689b"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Flight By Non Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "8b761b7e-96e3-4e00-b286-a7e32ddf6891"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Get All Flights with Pagination",
+									"item": [
+										{
+											"name": "Get All Flights with Pagination",
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"pagination\": {\r\n    \"pageNumber\": 1,\r\n    \"pageSize\": 5\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
 								{
 									"name": "New Request",
 									"request": {
