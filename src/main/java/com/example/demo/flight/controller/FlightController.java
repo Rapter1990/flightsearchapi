@@ -5,6 +5,8 @@ import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.request.airport.CreateAirportRequest;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
+import com.example.demo.flight.model.dto.response.airport.AirportResponse;
+import com.example.demo.flight.model.dto.response.flight.FlightResponse;
 import com.example.demo.flight.model.mapper.airport.AirportToAirportResponseMapper;
 import com.example.demo.flight.model.mapper.airport.CustomPageAirportToCustomPagingAirportResponseMapper;
 import com.example.demo.flight.model.mapper.flight.CustomPageFlightToCustomPagingFlightResponseMapper;
@@ -16,12 +18,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.UUID;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -61,6 +61,35 @@ public class FlightController {
         final Flight savedFlight = flightService.createFlight(createFlightRequest);
 
         return CustomResponse.successOf(savedFlight.getId());
+    }
+
+    /**
+     * Retrieves a flight by its ID.
+     *
+     * @param id the ID of the flight to be retrieved.
+     * @return a response containing the flight details.
+     */
+    @Operation(
+            summary = "Get flight by ID",
+            description = "Retrieves a flight by its ID. Accessible by both ADMIN and USER roles.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Flight successfully retrieved"),
+                    @ApiResponse(responseCode = "400", description = "Invalid flight details provided"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized, authentication is required"),
+                    @ApiResponse(responseCode = "403", description = "Access forbidden"),
+                    @ApiResponse(responseCode = "404", description = "Airport not found")
+            }
+    )
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    public CustomResponse<FlightResponse> getFlightById(@PathVariable @Valid @UUID final String id){
+
+        final Flight flight = flightService.getFlightById(id);
+
+        final FlightResponse response = flightToFlightResponseMapper.map(flight);
+
+        return CustomResponse.successOf(response);
+
     }
 
 }

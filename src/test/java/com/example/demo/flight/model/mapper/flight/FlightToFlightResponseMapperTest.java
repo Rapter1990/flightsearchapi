@@ -2,6 +2,7 @@ package com.example.demo.flight.model.mapper.flight;
 
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
+import com.example.demo.flight.model.dto.response.airport.AirportResponse;
 import com.example.demo.flight.model.dto.response.flight.FlightResponse;
 import org.junit.jupiter.api.Test;
 

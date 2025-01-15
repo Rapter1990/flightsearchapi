@@ -69,7 +69,7 @@ public class AirportController {
      */
     @Operation(
             summary = "Get airport by ID",
-            description = "Retrieves a airport by its ID. Accessible by both ADMIN and USER roles.",
+            description = "Retrieves an airport by its ID. Accessible by both ADMIN and USER roles.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Airport successfully retrieved"),
                     @ApiResponse(responseCode = "400", description = "Invalid airport details provided"),

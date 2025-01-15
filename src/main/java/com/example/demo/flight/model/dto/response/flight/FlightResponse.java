@@ -1,6 +1,6 @@
 package com.example.demo.flight.model.dto.response.flight;
 
-import com.example.demo.flight.model.Airport;
+import com.example.demo.flight.model.dto.response.airport.AirportResponse;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,8 +22,8 @@ import java.time.LocalDateTime;
 public class FlightResponse {
 
     private String id;
-    private Airport fromAirport;
-    private Airport toAirport;
+    private AirportResponse fromAirport;
+    private AirportResponse toAirport;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
     private Double price;

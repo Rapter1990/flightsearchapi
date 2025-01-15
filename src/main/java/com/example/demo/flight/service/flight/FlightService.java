@@ -1,5 +1,6 @@
 package com.example.demo.flight.service.flight;
 
+import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
 
@@ -15,5 +16,13 @@ public interface FlightService {
      * @return the created {@link Flight} entity.
      */
     Flight createFlight(CreateFlightRequest createFlightRequest);
+
+    /**
+     * Retrieves a flight by its ID.
+     *
+     * @param id the ID of the flight to be retrieved.
+     * @return the {@link Flight} entity with the specified ID.
+     */
+    Flight getFlightById(final String id);
 
 }
