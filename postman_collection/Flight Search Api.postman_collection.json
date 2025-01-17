@@ -530,7 +530,7 @@
 													"bearer": [
 														{
 															"key": "token",
-															"value": "eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3NjY4ZmRlOC01ZWZlLTQyNzgtYWY0MS0zMWQ5Njg3ZTU4ODgiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzQzMjg3MjAsImV4cCI6MTczNDMzMDUyMCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6ImQyZDAwMzExLWM2YjgtNGMyMS05N2VkLTQ0MTk5Mzg1NmU4ZCJ9.FlmN3PfpKNpB-F53uZin8dBCZ-cdbpq54iDf7sDFsgXZywCScRME6kkM0OuMCCGQWMWAWOw3blPlBOS2RLatz--HueEsXcfB89BKiCjQLFD3eakLpKJ4LqdQQuxeJ7X686wKDlxmqTsB65KGddbng0y9O2O4M3Ict0vkwBog84sBHE5d822XXB_69X2aQ2IqSoQE1P43eMGUaAie-5UQeVOmkxMUuIlPPW0DJQ37PQdtnQfFZnxWH_cO2ZctebzWhG4pYRBL6DofH5P23T1-5572xL26zZLrV5iAgq0u40v8jeqqn1b89Z-qAr0UuvCbRCrXK93FyK_DzgtzQTVAmg",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
 															"type": "string"
 														}
 													]
@@ -569,7 +569,7 @@
 													"bearer": [
 														{
 															"key": "token",
-															"value": "eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3NjY4ZmRlOC01ZWZlLTQyNzgtYWY0MS0zMWQ5Njg3ZTU4ODgiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzQzMjg3MjAsImV4cCI6MTczNDMzMDUyMCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6ImQyZDAwMzExLWM2YjgtNGMyMS05N2VkLTQ0MTk5Mzg1NmU4ZCJ9.FlmN3PfpKNpB-F53uZin8dBCZ-cdbpq54iDf7sDFsgXZywCScRME6kkM0OuMCCGQWMWAWOw3blPlBOS2RLatz--HueEsXcfB89BKiCjQLFD3eakLpKJ4LqdQQuxeJ7X686wKDlxmqTsB65KGddbng0y9O2O4M3Ict0vkwBog84sBHE5d822XXB_69X2aQ2IqSoQE1P43eMGUaAie-5UQeVOmkxMUuIlPPW0DJQ37PQdtnQfFZnxWH_cO2ZctebzWhG4pYRBL6DofH5P23T1-5572xL26zZLrV5iAgq0u40v8jeqqn1b89Z-qAr0UuvCbRCrXK93FyK_DzgtzQTVAmg",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
 															"type": "string"
 														}
 													]
@@ -613,7 +613,7 @@
 													"bearer": [
 														{
 															"key": "token",
-															"value": "eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3NjY4ZmRlOC01ZWZlLTQyNzgtYWY0MS0zMWQ5Njg3ZTU4ODgiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzQzMjg3MjAsImV4cCI6MTczNDMzMDUyMCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6ImQyZDAwMzExLWM2YjgtNGMyMS05N2VkLTQ0MTk5Mzg1NmU4ZCJ9.FlmN3PfpKNpB-F53uZin8dBCZ-cdbpq54iDf7sDFsgXZywCScRME6kkM0OuMCCGQWMWAWOw3blPlBOS2RLatz--HueEsXcfB89BKiCjQLFD3eakLpKJ4LqdQQuxeJ7X686wKDlxmqTsB65KGddbng0y9O2O4M3Ict0vkwBog84sBHE5d822XXB_69X2aQ2IqSoQE1P43eMGUaAie-5UQeVOmkxMUuIlPPW0DJQ37PQdtnQfFZnxWH_cO2ZctebzWhG4pYRBL6DofH5P23T1-5572xL26zZLrV5iAgq0u40v8jeqqn1b89Z-qAr0UuvCbRCrXK93FyK_DzgtzQTVAmg",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
 															"type": "string"
 														}
 													]
@@ -635,7 +635,7 @@
 													"variable": [
 														{
 															"key": "id",
-															"value": ""
+															"value": "4967b4bc-22db-43d5-bb23-8c2631044913"
 														}
 													]
 												}
@@ -672,7 +672,7 @@
 													"variable": [
 														{
 															"key": "id",
-															"value": "678192205fa91e6bcd380c1d"
+															"value": "121c5792-b7ab-4b7a-95eb-1184d9ae2107"
 														}
 													]
 												}
@@ -695,7 +695,7 @@
 													"bearer": [
 														{
 															"key": "token",
-															"value": "eyJ0eXAiOiJCZWFyZXIiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI3NjY4ZmRlOC01ZWZlLTQyNzgtYWY0MS0zMWQ5Njg3ZTU4ODgiLCJpc3MiOiJJU1NVRVIiLCJpYXQiOjE3MzQzMjg3MjAsImV4cCI6MTczNDMzMDUyMCwidXNlclN0YXR1cyI6IkFDVElWRSIsInVzZXJMYXN0TmFtZSI6ImV4YW1wbGVBZG1pblN1ck5hbWUiLCJ1c2VyUGhvbmVOdW1iZXIiOiIwMTIzNDU2Nzg5MCIsInVzZXJFbWFpbCI6ImV4YW1wbGVBZG1pbkBnbWFpbC5jb20iLCJ1c2VyVHlwZSI6IkFETUlOIiwidXNlckZpcnN0TmFtZSI6ImV4YW1wbGVBZG1pbkZpcnN0TmFtZSIsInVzZXJJZCI6ImQyZDAwMzExLWM2YjgtNGMyMS05N2VkLTQ0MTk5Mzg1NmU4ZCJ9.FlmN3PfpKNpB-F53uZin8dBCZ-cdbpq54iDf7sDFsgXZywCScRME6kkM0OuMCCGQWMWAWOw3blPlBOS2RLatz--HueEsXcfB89BKiCjQLFD3eakLpKJ4LqdQQuxeJ7X686wKDlxmqTsB65KGddbng0y9O2O4M3Ict0vkwBog84sBHE5d822XXB_69X2aQ2IqSoQE1P43eMGUaAie-5UQeVOmkxMUuIlPPW0DJQ37PQdtnQfFZnxWH_cO2ZctebzWhG4pYRBL6DofH5P23T1-5572xL26zZLrV5iAgq0u40v8jeqqn1b89Z-qAr0UuvCbRCrXK93FyK_DzgtzQTVAmg",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
 															"type": "string"
 														}
 													]
@@ -734,16 +734,92 @@
 										{
 											"name": "Update Airport By Existing Id",
 											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
 												"method": "PUT",
-												"header": []
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\" : \"IST Updated\",\r\n    \"cityName\" : \"İstanbul Updated\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/airports/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "c372fd58-a4c2-4c7c-9471-e07c689204d4"
+														}
+													]
+												}
 											},
 											"response": []
 										},
 										{
 											"name": "Update Airport By Non Existing Id",
 											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
 												"method": "PUT",
-												"header": []
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\" : \"IST Updated\",\r\n    \"cityName\" : \"İstanbul Updated\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/airports/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"airports",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "121c5792-b7ab-4b7a-95eb-1184d9ae2107"
+														}
+													]
+												}
 											},
 											"response": []
 										}
@@ -1161,6 +1237,103 @@
 														"api",
 														"v1",
 														"flights"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Update Flight By Id",
+									"item": [
+										{
+											"name": "Update Flight By Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"fromAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n  \"toAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n  \"departureTime\": \"2025-01-18T08:00:00\",\r\n  \"arrivalTime\": \"2025-01-18T11:00:00\",\r\n  \"price\": 499.99\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "8b761b7e-96e3-4e00-b286-a7e32ddf689b"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update Flight By Non Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"fromAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n  \"toAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n  \"departureTime\": \"2025-01-18T08:00:00\",\r\n  \"arrivalTime\": \"2025-01-18T11:00:00\",\r\n  \"price\": 399.99\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "8b761b7e-96e3-4e00-b286-a7e32ddf6891"
+														}
 													]
 												}
 											},
