@@ -10,6 +10,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for {@link UpdateAirportRequestToAirportEntityMapper}.
+ * This class tests the functionality of mapping between {@link UpdateAirportRequest}
+ * and {@link AirportEntity} using the {@link UpdateAirportRequestToAirportEntityMapper}.
+ */
 class UpdateAirportRequestToAirportEntityMapperTest {
 
     private final UpdateAirportRequestToAirportEntityMapper mapper = UpdateAirportRequestToAirportEntityMapper.initialize();

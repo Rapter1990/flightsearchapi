@@ -4,9 +4,11 @@ import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
+import com.example.demo.flight.model.dto.request.flight.UpdateFlightRequest;
 import com.example.demo.flight.service.flight.FlightCreateService;
 import com.example.demo.flight.service.flight.FlightReadService;
 import com.example.demo.flight.service.flight.FlightService;
+import com.example.demo.flight.service.flight.FlightUpdateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ public class FlightServiceImpl implements FlightService {
 
     private final FlightCreateService flightCreateService;
     private final FlightReadService flightReadService;
+    private final FlightUpdateService flightUpdateService;
 
     /**
      * Creates a new flight in the system.
@@ -51,6 +54,18 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public CustomPage<Flight> getAllFlights(CustomPagingRequest customPagingRequest) {
         return flightReadService.getAllFlights(customPagingRequest);
+    }
+
+    /**
+     * Updates an existing a flight by its ID.
+     *
+     * @param id the ID of the flight to be updated.
+     * @param updateFlightRequest the request object containing the updated details of the flight.
+     * @return the updated {@link Flight} entity.
+     */
+    @Override
+    public Flight updateFlightById(String id, UpdateFlightRequest updateFlightRequest) {
+        return flightUpdateService.updateFlightById(id,updateFlightRequest);
     }
 
 }

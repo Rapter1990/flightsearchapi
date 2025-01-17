@@ -4,6 +4,7 @@ import com.example.demo.auth.exception.*;
 import com.example.demo.base.AbstractBaseServiceTest;
 import com.example.demo.flight.exception.AirportNameAlreadyExistException;
 import com.example.demo.flight.exception.AirportNotFoundException;
+import com.example.demo.flight.exception.FlightNotFoundException;
 import com.example.demo.logging.entity.LogEntity;
 import com.example.demo.logging.service.LogService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -237,6 +238,7 @@ class LoggerAspectJTest extends AbstractBaseServiceTest {
                 new UserStatusNotValidException("User status not valid"), UserStatusNotValidException.STATUS.name(),
                 new AirportNotFoundException("Airport not found"), AirportNotFoundException.STATUS.name(),
                 new AirportNameAlreadyExistException("Airport name is already exist"), AirportNameAlreadyExistException.STATUS.name(),
+                new FlightNotFoundException("Airport not found"), FlightNotFoundException.STATUS.name(),
                 new Exception("Unknown exception"), HttpStatus.INTERNAL_SERVER_ERROR.name()
         );
 

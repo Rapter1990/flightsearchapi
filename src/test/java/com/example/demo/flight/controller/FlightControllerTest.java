@@ -1,9 +1,7 @@
 package com.example.demo.flight.controller;
 
 import com.example.demo.base.AbstractRestControllerTest;
-import com.example.demo.builder.CreateFlightRequestBuilder;
-import com.example.demo.builder.FlightBuilder;
-import com.example.demo.builder.FlightEntityBuilder;
+import com.example.demo.builder.*;
 import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.CustomPaging;
 import com.example.demo.common.model.dto.response.CustomPagingResponse;
@@ -12,6 +10,7 @@ import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.request.airport.AirportPagingRequest;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
+import com.example.demo.flight.model.dto.request.flight.UpdateFlightRequest;
 import com.example.demo.flight.model.dto.response.flight.FlightResponse;
 import com.example.demo.flight.model.entity.FlightEntity;
 import com.example.demo.flight.model.mapper.flight.CustomPageFlightToCustomPagingFlightResponseMapper;
@@ -503,6 +502,151 @@ class FlightControllerTest extends AbstractRestControllerTest {
 
         // Verify
         verify(flightService, never()).getAllFlights(any(AirportPagingRequest.class));
+
+    }
+
+    @Test
+    void givenValidUpdateFlightRequest_whenTokenMissing_thenReturnUnauthorized() throws Exception {
+
+        // Given
+        final String mockId = UUID.randomUUID().toString();
+
+        final UpdateFlightRequest request = new UpdateFlightRequestBuilder()
+                .withValidFields()
+                .build();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/flights/{id}", mockId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
+        // Verify
+        verify(flightService, never()).updateFlightById(anyString(), any(UpdateFlightRequest.class));
+
+    }
+
+    @Test
+    void givenValidUpdateFlightRequest_whenAdminAuthorized_thenUpdateFlightAndReturnSuccess() throws Exception {
+        // Given
+        final String mockId = UUID.randomUUID().toString();
+
+        final UpdateFlightRequest request = new UpdateFlightRequestBuilder()
+                .withValidFields()
+                .withDepartureTime(LocalDateTime.now().plusDays(1))
+                .withArrivalTime(LocalDateTime.now().plusDays(2))
+                .build();
+
+        final Flight mockFlight = new FlightBuilder()
+                .withId(mockId)
+                .withFromAirport(new AirportBuilder().withValidFields())
+                .withToAirport(new AirportBuilder().withValidFields())
+                .withDepartureTime(request.getDepartureTime())
+                .withArrivalTime(request.getArrivalTime())
+                .withPrice(request.getPrice())
+                .build();
+
+        final FlightResponse response = flightToFlightResponseMapper.map(mockFlight);
+
+        when(flightService.updateFlightById(eq(mockId), any(UpdateFlightRequest.class))).thenReturn(mockFlight);
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/flights/{id}", mockId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockAdminToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.id").value(response.getId())) // Ensure the response ID matches the mocked one
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.fromAirport.id").value(response.getFromAirport().getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.fromAirport.name").value(response.getFromAirport().getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.fromAirport.cityName").value(response.getFromAirport().getCityName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.toAirport.id").value(response.getToAirport().getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.toAirport.name").value(response.getToAirport().getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.toAirport.cityName").value(response.getToAirport().getCityName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.price").value(response.getPrice()));
+
+        // Verify
+        verify(flightService).updateFlightById(eq(mockId), any(UpdateFlightRequest.class));
+
+    }
+
+    @Test
+    void givenInvalidFlightId_whenUpdateFlight_thenThrowNotFoundException() throws Exception {
+
+        // Given
+        final String nonExistentFlightId = UUID.randomUUID().toString();
+        final UpdateFlightRequest request = new UpdateFlightRequestBuilder()
+                .withValidFields()
+                .build();
+
+        final String expectedMessage = "Flight not found!\n Flight not found with ID: " + nonExistentFlightId;
+
+        // When
+        when(flightService.updateFlightById(anyString(), any(UpdateFlightRequest.class)))
+                .thenThrow(new FlightNotFoundException("Flight not found with ID: " + nonExistentFlightId));
+
+        // Then
+        mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .put("/api/v1/flights/{id}", nonExistentFlightId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request))
+                                .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockAdminToken.getAccessToken())
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("NOT_FOUND"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(expectedMessage))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(false));
+
+        // Verify
+        verify(flightService, times(1)).updateFlightById(anyString(), any(UpdateFlightRequest.class));
+
+    }
+
+    @Test
+    void givenValidUpdateFlightRequest_whenUserUnAuthorized_thenReturnForbidden() throws Exception {
+
+        // Given
+        final String mockId = UUID.randomUUID().toString();
+        final UpdateFlightRequest request = new UpdateFlightRequestBuilder()
+                .withValidFields()
+                .build();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/flights/{id}", mockId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockUserToken.getAccessToken())
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isForbidden());
+
+        // Verify
+        verify(flightService, never()).updateFlightById(anyString(), any(UpdateFlightRequest.class));
+
+    }
+
+    @Test
+    void givenValidUpdateRequest_whenUserNotAuthenticated_thenThrowUnauthorized() throws Exception {
+
+        // Given
+        final String mockId = UUID.randomUUID().toString();
+        final UpdateFlightRequest request = new UpdateFlightRequestBuilder()
+                .withValidFields()
+                .build();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/flights/{id}", mockId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
+        // Verify
+        verify(flightService, never()).updateFlightById(anyString(), any(UpdateFlightRequest.class));
 
     }
 

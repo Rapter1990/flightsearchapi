@@ -3,6 +3,7 @@ package com.example.demo.logging.aop;
 import com.example.demo.auth.exception.*;
 import com.example.demo.flight.exception.AirportNameAlreadyExistException;
 import com.example.demo.flight.exception.AirportNotFoundException;
+import com.example.demo.flight.exception.FlightNotFoundException;
 import com.example.demo.logging.entity.LogEntity;
 import com.example.demo.logging.service.LogService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -168,6 +169,7 @@ public class LoggerAspectJ {
             case "UserStatusNotValidException" -> UserStatusNotValidException.STATUS.name();
             case "AirportNotFoundException" -> AirportNotFoundException.STATUS.name();
             case "AirportNameAlreadyExistException" -> AirportNameAlreadyExistException.STATUS.name();
+            case "FlightNotFoundException" -> FlightNotFoundException.STATUS.name();
             default -> HttpStatus.INTERNAL_SERVER_ERROR.name();
         };
     }

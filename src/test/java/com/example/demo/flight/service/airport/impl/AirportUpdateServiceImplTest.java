@@ -20,6 +20,10 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit test class for {@link AirportUpdateServiceImpl}.
+ * This class verifies the correctness of the business logic in {@link AirportUpdateServiceImpl}.
+ */
 class AirportUpdateServiceImplTest extends AbstractBaseServiceTest {
 
     @InjectMocks

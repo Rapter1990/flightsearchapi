@@ -9,8 +9,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 /**
- * Represents a request to create a new flight.
- * This class contains fields for the flight's origin, destination, departure time, arrival time, and price.
+ * Represents a request to update an existing flight.
+ * This class contains fields for the flight's updated origin, destination, departure time, arrival time, and price.
  * All fields are mandatory and must meet the specified validation constraints.
  */
 @NoArgsConstructor
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @ValidArrivalTime
-public class CreateFlightRequest {
+public class UpdateFlightRequest {
 
     @NotBlank(message = "From airport ID field cannot be empty")
     private String fromAirportId;

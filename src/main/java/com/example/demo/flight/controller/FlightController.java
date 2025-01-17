@@ -3,17 +3,12 @@ package com.example.demo.flight.controller;
 import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.dto.response.CustomPagingResponse;
 import com.example.demo.common.model.dto.response.CustomResponse;
-import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.request.airport.AirportPagingRequest;
-import com.example.demo.flight.model.dto.request.airport.CreateAirportRequest;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
-import com.example.demo.flight.model.dto.response.airport.AirportResponse;
+import com.example.demo.flight.model.dto.request.flight.UpdateFlightRequest;
 import com.example.demo.flight.model.dto.response.flight.FlightResponse;
-import com.example.demo.flight.model.mapper.airport.AirportToAirportResponseMapper;
-import com.example.demo.flight.model.mapper.airport.CustomPageAirportToCustomPagingAirportResponseMapper;
 import com.example.demo.flight.model.mapper.flight.CustomPageFlightToCustomPagingFlightResponseMapper;
-import com.example.demo.flight.model.mapper.flight.FlightEntityToFlightMapper;
 import com.example.demo.flight.model.mapper.flight.FlightToFlightResponseMapper;
 import com.example.demo.flight.service.flight.FlightService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -119,6 +114,37 @@ public class FlightController {
 
         final CustomPagingResponse<FlightResponse> response = customPageFlightToCustomPagingFlightResponseMapper
                 .toPagingResponse(flightCustomPage);
+
+        return CustomResponse.successOf(response);
+    }
+
+    /**
+     * Updates an existing flight by its ID.
+     *
+     * @param id the ID of the flight to be updated.
+     * @param updateFlightRequest the request body containing the updated flight details.
+     * @return a response containing the updated flight details.
+     */
+    @Operation(
+            summary = "Update an flight",
+            description = "Updates an existing flight by its ID. Accessible by ADMIN only.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Flight successfully updated"),
+                    @ApiResponse(responseCode = "400", description = "Invalid update details provided"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized, authentication is required"),
+                    @ApiResponse(responseCode = "403", description = "Access forbidden"),
+                    @ApiResponse(responseCode = "404", description = "Flight not found")
+            }
+    )
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public CustomResponse<FlightResponse> updateFlightById(
+            @PathVariable @Valid @UUID final String id,
+            @RequestBody @Valid final UpdateFlightRequest updateFlightRequest) {
+
+        final Flight flight = flightService.updateFlightById(id, updateFlightRequest);
+
+        final FlightResponse response = flightToFlightResponseMapper.map(flight);
 
         return CustomResponse.successOf(response);
     }

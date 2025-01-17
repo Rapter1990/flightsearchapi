@@ -279,7 +279,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void givenTaskPagingRequest_whenGetTasksFromAdmin_thenReturnCustomPageTask() throws Exception {
+    void givenAirportPagingRequest_whenGetAirportsFromAdmin_thenReturnCustomPageTask() throws Exception {
 
         // Given
         final AirportPagingRequest pagingRequest = AirportPagingRequest.builder()
@@ -330,7 +330,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void givenTaskPagingRequest_whenGetTasksFromUser_thenReturnCustomPageTask() throws Exception {
+    void givenAirportPagingRequest_whenGetAirportsFromUser_thenReturnCustomPageTask() throws Exception {
 
         // Given
         final AirportPagingRequest pagingRequest = AirportPagingRequest.builder()
@@ -381,7 +381,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void givenTaskPagingRequest_WhenUnauthorized_thenThrowUnauthorized() throws Exception {
+    void givenAirportPagingRequest_WhenUnauthorized_thenThrowUnauthorized() throws Exception {
 
         // Given
         final AirportPagingRequest pagingRequest = AirportPagingRequest.builder()
@@ -405,7 +405,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void givenValidTaskUpdate_WithAdminUpdate_whenUpdateTask_thenSuccess() throws Exception{
+    void givenValidAirportUpdate_WithAdminUpdate_whenUpdateAirport_thenSuccess() throws Exception{
 
         // Given
         final String mockId = UUID.randomUUID().toString();
@@ -419,6 +419,8 @@ class AirportControllerTest extends AbstractRestControllerTest {
                 .withName(request.getName())
                 .withCityName(request.getCityName())
                 .build();
+
+        final AirportResponse expectedAirportResponse = airportToAirportResponseMapper.map(expectedAirport);
 
         // When
         when(airportService.updateAirportById(anyString(),any(UpdateAirportRequest.class)))
@@ -436,9 +438,9 @@ class AirportControllerTest extends AbstractRestControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("OK"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(true))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.response.id").value(expectedAirport.getId()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.response.name").value(expectedAirport.getName()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.response.cityName").value(expectedAirport.getCityName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.id").value(expectedAirportResponse.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.name").value(expectedAirportResponse.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response.cityName").value(expectedAirportResponse.getCityName()));
 
         // Verify
         verify(airportService,times(1))
@@ -447,7 +449,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void givenTaskWithDuplicateName_whenUpdateTask_thenThrowTaskWithThisNameAlreadyExistException() throws Exception {
+    void givenAirportWithDuplicateName_whenUpdateAirport_thenThrowAirportWithThisNameAlreadyExistException() throws Exception {
 
         // Given
         final String mockId = UUID.randomUUID().toString();
@@ -482,7 +484,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void givenInvalidTaskId_whenUpdateTask_thenThrowNotFoundException() throws Exception {
+    void givenInvalidAirportId_whenUpdateAirport_thenThrowNotFoundException() throws Exception {
 
         // Given
         final String nonExistentTaskId = UUID.randomUUID().toString();
@@ -518,7 +520,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
 
 
     @Test
-    void givenValidUpdateTaskRequest_whenUserUnAuthorized_thenReturnUnauthorized() throws Exception {
+    void givenValidUpdateAirportRequest_whenUserUnAuthorized_thenReturnUnauthorized() throws Exception {
 
         // Given
         final String mockId = UUID.randomUUID().toString();
