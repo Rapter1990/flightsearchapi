@@ -149,14 +149,14 @@ public class AirportController {
     }
 
     /**
-     * Deletes a airport by its ID.
+     * Deletes an airport by its ID.
      *
      * @param id the ID of the airport to be deleted.
      * @return a response containing a success message.
      */
     @Operation(
             summary = "Delete an airport",
-            description = "Deletes a airport by its ID. Accessible by ADMIN only.",
+            description = "Deletes an airport by its ID. Accessible by ADMIN only.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Airport successfully deleted"),
                     @ApiResponse(responseCode = "400", description = "Invalid update details provided"),

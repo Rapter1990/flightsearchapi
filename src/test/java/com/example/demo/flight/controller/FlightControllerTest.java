@@ -650,4 +650,91 @@ class FlightControllerTest extends AbstractRestControllerTest {
 
     }
 
+    @Test
+    void givenValidFlightId_whenDeleteFlightByIdFromAdmin_thenSuccess() throws Exception {
+
+        // Given
+        final String mockFlightId = UUID.randomUUID().toString();
+
+        // When
+        doNothing().when(flightService).deleteFlightById(mockFlightId);
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/v1/flights/{id}", mockFlightId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockAdminToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("OK"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(true))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.response").value(
+                        "Flight with id " + mockFlightId + "is deleted")
+                );
+
+        // Verify
+        verify(flightService, times(1)).deleteFlightById(mockFlightId);
+
+    }
+
+    @Test
+    void givenValidAirportId_whenDeleteAirportByIdFromUser_thenForbidden() throws Exception {
+
+        // Given
+        final String mockFlightId = UUID.randomUUID().toString();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/v1/flights/{id}", mockFlightId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockUserToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isForbidden());
+
+        // Verify
+        verify(flightService, never()).deleteFlightById(mockFlightId);
+
+    }
+
+    @Test
+    void givenValidAirportId_whenNotAuthenticated_thenUnauthorized() throws Exception {
+
+        // Given
+        final String mockFlightId = UUID.randomUUID().toString();
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/v1/flights/{id}", mockFlightId))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
+        // Verify
+        verify(flightService, never()).deleteFlightById(mockFlightId);
+
+    }
+
+    @Test
+    void givenInvalidFlightId_whenAdminDeletesFlight_thenFlightNotFoundException() throws Exception {
+
+        // Given
+        final String mockFlightId = UUID.randomUUID().toString();
+        final String expectedMessage = "Flight not found!\n";
+
+        // When
+        doThrow(new FlightNotFoundException())
+                .when(flightService).deleteFlightById(mockFlightId);
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/v1/flights/{id}", mockFlightId)
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + mockAdminToken.getAccessToken()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("NOT_FOUND"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(false))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(expectedMessage));
+
+        // Verify
+        verify(flightService, times(1)).deleteFlightById(mockFlightId);
+
+    }
+
 }

@@ -5,10 +5,7 @@ import com.example.demo.common.model.dto.request.CustomPagingRequest;
 import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
 import com.example.demo.flight.model.dto.request.flight.UpdateFlightRequest;
-import com.example.demo.flight.service.flight.FlightCreateService;
-import com.example.demo.flight.service.flight.FlightReadService;
-import com.example.demo.flight.service.flight.FlightService;
-import com.example.demo.flight.service.flight.FlightUpdateService;
+import com.example.demo.flight.service.flight.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +19,7 @@ public class FlightServiceImpl implements FlightService {
     private final FlightCreateService flightCreateService;
     private final FlightReadService flightReadService;
     private final FlightUpdateService flightUpdateService;
+    private final FlightDeleteService flightDeleteService;
 
     /**
      * Creates a new flight in the system.
@@ -66,6 +64,16 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public Flight updateFlightById(String id, UpdateFlightRequest updateFlightRequest) {
         return flightUpdateService.updateFlightById(id,updateFlightRequest);
+    }
+
+    /**
+     * Deletes a flight by its ID.
+     *
+     * @param id the ID of the flight to be deleted.
+     */
+    @Override
+    public void deleteFlightById(String id) {
+        flightDeleteService.deleteFlightById(id);
     }
 
 }

@@ -8,11 +8,13 @@ import com.example.demo.builder.UpdateFlightRequestBuilder;
 import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.CustomPaging;
 import com.example.demo.common.model.dto.request.CustomPagingRequest;
+import com.example.demo.flight.exception.FlightNotFoundException;
 import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
 import com.example.demo.flight.model.dto.request.flight.UpdateFlightRequest;
 import com.example.demo.flight.service.flight.FlightCreateService;
+import com.example.demo.flight.service.flight.FlightDeleteService;
 import com.example.demo.flight.service.flight.FlightReadService;
 import com.example.demo.flight.service.flight.FlightUpdateService;
 import org.junit.jupiter.api.Test;
@@ -23,8 +25,7 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -45,6 +46,10 @@ class FlightServiceImplTest extends AbstractBaseServiceTest {
 
     @Mock
     private FlightUpdateService flightUpdateService;
+
+    @Mock
+    private FlightDeleteService flightDeleteService;
+
 
     @Test
     void givenValidCreateFlightRequest_whenCreateFlight_ThenReturnFlight() {
@@ -200,6 +205,24 @@ class FlightServiceImplTest extends AbstractBaseServiceTest {
 
         // Verify
         verify(flightUpdateService, times(1)).updateFlightById(flightId, mockUpdateFlightRequest);
+
+    }
+
+    @Test
+    void givenInvalidFlightId_whenDeleteFlightById_thenThrowFlightNotFoundException() {
+
+        // Given
+        final String mockId = UUID.randomUUID().toString();
+
+        // When
+        doThrow(new FlightNotFoundException("Flight not found with id: " + mockId))
+                .when(flightDeleteService).deleteFlightById(mockId);
+
+        // Then
+        assertThrows(FlightNotFoundException.class, () -> flightService.deleteFlightById(mockId));
+
+        // Verify
+        verify(flightDeleteService, times(1)).deleteFlightById(mockId);
 
     }
 

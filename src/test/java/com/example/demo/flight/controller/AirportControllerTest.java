@@ -626,7 +626,7 @@ class AirportControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    void givenInvalidTaskId_whenAdminDeletesTask_thenTaskNotFoundException() throws Exception {
+    void givenInvalidAirportId_whenAdminDeletesAirport_thenAirportNotFoundException() throws Exception {
 
         // Given
         final String mockAirportId = UUID.randomUUID().toString();

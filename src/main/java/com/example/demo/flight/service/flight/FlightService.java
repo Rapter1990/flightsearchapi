@@ -44,4 +44,11 @@ public interface FlightService {
      */
     Flight updateFlightById(final String id, final UpdateFlightRequest updateFlightRequest);
 
+    /**
+     * Deletes a flight by its ID.
+     *
+     * @param id the ID of the flight to be deleted.
+     */
+    void deleteFlightById(String id);
+
 }

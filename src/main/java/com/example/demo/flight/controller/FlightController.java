@@ -149,4 +149,31 @@ public class FlightController {
         return CustomResponse.successOf(response);
     }
 
+    /**
+     * Deletes a flight by its ID.
+     *
+     * @param id the ID of the flight to be deleted.
+     * @return a response containing a success message.
+     */
+    @Operation(
+            summary = "Delete an flight",
+            description = "Deletes a flight by its ID. Accessible by ADMIN only.",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Flight successfully deleted"),
+                    @ApiResponse(responseCode = "400", description = "Invalid update details provided"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized, authentication is required"),
+                    @ApiResponse(responseCode = "403", description = "Access forbidden"),
+                    @ApiResponse(responseCode = "404", description = "Flight not found")
+            }
+    )
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public CustomResponse<String> deleteAirportById(@PathVariable @Valid @UUID final String id){
+
+        flightService.deleteFlightById(id);
+
+        return CustomResponse.successOf("Flight with id "+ id + "is deleted");
+
+    }
+
 }
