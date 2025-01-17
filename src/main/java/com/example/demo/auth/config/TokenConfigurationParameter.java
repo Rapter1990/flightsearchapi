@@ -1,8 +1,8 @@
 package com.example.demo.auth.config;
 
-import lombok.Getter;
 import com.example.demo.auth.model.enums.ConfigurationParameter;
 import com.example.demo.auth.utils.KeyConverter;
+import lombok.Getter;
 import org.springframework.context.annotation.Configuration;
 
 import java.security.PrivateKey;

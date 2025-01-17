@@ -29,8 +29,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.JsonNode;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;

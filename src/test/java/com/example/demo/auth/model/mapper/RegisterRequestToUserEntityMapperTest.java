@@ -1,7 +1,5 @@
 package com.example.demo.auth.model.mapper;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.example.demo.auth.model.dto.request.RegisterRequest;
 import com.example.demo.auth.model.entity.UserEntity;
 import com.example.demo.auth.model.enums.UserType;

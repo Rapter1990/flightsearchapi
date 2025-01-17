@@ -1,7 +1,5 @@
 package com.example.demo.common.exception;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.example.demo.auth.exception.*;
 import com.example.demo.base.AbstractRestControllerTest;
 import com.example.demo.common.model.CustomError;

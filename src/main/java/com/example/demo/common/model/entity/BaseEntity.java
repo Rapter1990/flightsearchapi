@@ -1,18 +1,13 @@
 package com.example.demo.common.model.entity;
 
-import com.example.demo.auth.model.enums.TokenClaims;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 /**
  * A base entity class that provides common fields for tracking the creation

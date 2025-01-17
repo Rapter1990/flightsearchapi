@@ -8,8 +8,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.UUID;
-
 /**
  * Represents an airport entity stored in the MongoDB {@code airport-collection}.
  * Contains airport details such as {@code name} and {@code cityName}.

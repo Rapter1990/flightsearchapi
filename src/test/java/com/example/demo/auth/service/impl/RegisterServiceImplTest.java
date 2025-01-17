@@ -1,7 +1,5 @@
 package com.example.demo.auth.service.impl;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.example.demo.auth.exception.UserAlreadyExistException;
 import com.example.demo.auth.model.User;
 import com.example.demo.auth.model.dto.request.RegisterRequest;

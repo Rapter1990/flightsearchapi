@@ -1,11 +1,11 @@
 package com.example.demo.auth.utils;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit test class for {@link KeyConverter}.

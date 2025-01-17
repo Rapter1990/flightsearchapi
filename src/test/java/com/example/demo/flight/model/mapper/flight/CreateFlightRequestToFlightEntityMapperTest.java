@@ -1,12 +1,15 @@
 package com.example.demo.flight.model.mapper.flight;
 
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
-import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.model.entity.FlightEntity;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CreateFlightRequestToFlightEntityMapperTest {

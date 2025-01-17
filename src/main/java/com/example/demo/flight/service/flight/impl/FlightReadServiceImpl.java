@@ -2,13 +2,9 @@ package com.example.demo.flight.service.flight.impl;
 
 import com.example.demo.common.model.CustomPage;
 import com.example.demo.common.model.dto.request.CustomPagingRequest;
-import com.example.demo.flight.exception.AirportNotFoundException;
 import com.example.demo.flight.exception.FlightNotFoundException;
-import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
-import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.model.entity.FlightEntity;
-import com.example.demo.flight.model.mapper.airport.ListAirportEntityToListAirportMapper;
 import com.example.demo.flight.model.mapper.flight.FlightEntityToFlightMapper;
 import com.example.demo.flight.model.mapper.flight.ListFlightEntityToListFlightMapper;
 import com.example.demo.flight.repository.FlightRepository;

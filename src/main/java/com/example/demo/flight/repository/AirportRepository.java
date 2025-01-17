@@ -3,8 +3,6 @@ package com.example.demo.flight.repository;
 import com.example.demo.flight.model.entity.AirportEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.Optional;
-
 /**
  * Repository interface for managing {@link AirportEntity} entities in the MongoDB database.
  * Provides CRUD operations and custom query methods for handling {@link AirportEntity} records.

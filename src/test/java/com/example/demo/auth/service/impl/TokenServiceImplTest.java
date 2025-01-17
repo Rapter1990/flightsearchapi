@@ -1,7 +1,5 @@
 package com.example.demo.auth.service.impl;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.example.demo.auth.config.TokenConfigurationParameter;
 import com.example.demo.auth.model.Token;
 import com.example.demo.auth.service.InvalidTokenService;

@@ -5,6 +5,7 @@ import com.example.demo.auth.model.Token;
 import com.example.demo.auth.model.enums.TokenClaims;
 import com.example.demo.builder.AdminUserBuilder;
 import com.example.demo.builder.UserBuilder;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.test.web.servlet.MockMvc;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testcontainers.shaded.org.apache.commons.lang3.time.DateUtils;
 
 import java.util.Date;

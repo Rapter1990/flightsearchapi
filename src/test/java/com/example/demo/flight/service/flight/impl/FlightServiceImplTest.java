@@ -12,7 +12,6 @@ import com.example.demo.flight.model.Airport;
 import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
 import com.example.demo.flight.model.dto.request.flight.UpdateFlightRequest;
-import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.service.flight.FlightCreateService;
 import com.example.demo.flight.service.flight.FlightReadService;
 import com.example.demo.flight.service.flight.FlightUpdateService;
@@ -21,11 +20,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.domain.PageRequest;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 

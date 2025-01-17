@@ -6,7 +6,6 @@ import com.example.demo.flight.model.Flight;
 import com.example.demo.flight.model.dto.response.flight.FlightResponse;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

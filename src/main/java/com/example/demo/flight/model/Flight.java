@@ -1,7 +1,6 @@
 package com.example.demo.flight.model;
 
 import com.example.demo.common.model.BaseDomainModel;
-import com.example.demo.flight.model.entity.AirportEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

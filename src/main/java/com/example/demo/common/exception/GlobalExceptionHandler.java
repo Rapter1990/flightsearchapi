@@ -4,8 +4,6 @@ import com.example.demo.auth.exception.*;
 import com.example.demo.common.model.CustomError;
 import com.example.demo.flight.exception.AirportNameAlreadyExistException;
 import com.example.demo.flight.exception.AirportNotFoundException;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import jakarta.validation.ConstraintViolationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -14,6 +12,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

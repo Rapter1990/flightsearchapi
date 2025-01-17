@@ -1,7 +1,5 @@
 package com.example.demo.auth.model.mapper;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.example.demo.auth.model.Token;
 import com.example.demo.auth.model.dto.response.TokenResponse;
 import org.junit.jupiter.api.Test;

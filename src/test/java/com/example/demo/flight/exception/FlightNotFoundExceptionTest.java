@@ -2,7 +2,8 @@ package com.example.demo.flight.exception;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Test class for verifying the behavior of the {@link FlightNotFoundException}.

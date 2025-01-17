@@ -1,7 +1,6 @@
 package com.example.demo.flight.model.entity;
 
 import com.example.demo.common.model.entity.BaseEntity;
-import com.example.demo.flight.model.Airport;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.Id;
