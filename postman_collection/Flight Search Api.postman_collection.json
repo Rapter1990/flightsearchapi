@@ -1340,6 +1340,85 @@
 											"response": []
 										}
 									]
+								},
+								{
+									"name": "Delete Flight By Id",
+									"item": [
+										{
+											"name": "Delete Flight By Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "8b761b7e-96e3-4e00-b286-a7e32ddf689b"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Flight By Non Existing Id",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/:id",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "8b761b7e-96e3-4e00-b286-a7e32ddf6891"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						},
