@@ -1,0 +1,63 @@
+name: CI/CD Pipeline # Define the name of the workflow.
+
+on:
+  push:
+    branches: [ "main" ] # Trigger the workflow on push events to the 'main' branch.
+  pull_request:
+    branches: [ "main" ] # Trigger the workflow when a pull request is made targeting the 'main' branch.
+
+jobs:
+  test: # Define a job named "test" for unit testing.
+    name: Unit Test # Display name for the job in the CI/CD pipeline.
+    runs-on: ubuntu-latest # Specify the operating system for the job's environment (latest version of Ubuntu).
+    steps:
+      - name: Checkout code # Step to checkout the source code from the repository.
+        uses: actions/checkout@v3 # Use GitHub's official checkout action to get the code.
+
+      - name: Set up JDK 21 # Step to set up Java Development Kit version 21.
+        uses: actions/setup-java@v3 # Use GitHub's setup-java action to configure Java.
+        with:
+          java-version: '21' # Specify the JDK version (21).
+          distribution: 'temurin' # Use Temurin distribution of JDK.
+          cache: 'maven' # Cache Maven dependencies to speed up builds.
+
+      - name: Cache Maven packages # Step to cache Maven dependencies.
+        uses: actions/cache@v3 # Use GitHub's caching action to store dependencies.
+        with:
+          path: ~/.m2 # Cache the local Maven repository (~/.m2).
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }} # Cache key based on the operating system and the hash of the pom.xml file to invalidate the cache when dependencies change.
+          restore-keys: ${{ runner.os }}-m2 # Restore cache using a simpler key if no exact match is found.
+
+      - name: Build with Maven # Step to build the project using Maven.
+        run: mvn -B package --file pom.xml # Run Maven in batch mode and package the project.
+
+      - name: Run Tests # Step to run unit tests.
+        run: mvn -B test # Run Maven tests in batch mode.
+
+  build-and-push: # Define another job for building and pushing Docker images.
+    name: Build and Push # Display name for the build and push job.
+    runs-on: ubuntu-latest # Specify the operating system for this job (latest version of Ubuntu).
+    needs: test # Specify that this job depends on the "test" job.
+    steps:
+      - name: Checkout code # Step to checkout the source code from the repository (same as above).
+        uses: actions/checkout@v3 # Use GitHub's official checkout action to get the code.
+
+      - name: Set up JDK 21 # Step to set up Java Development Kit version 21 (same as above).
+        uses: actions/setup-java@v3 # Use GitHub's setup-java action to configure Java.
+        with:
+          java-version: '21' # Specify the JDK version (21).
+          distribution: 'temurin' # Use Temurin distribution of JDK.
+          cache: 'maven' # Cache Maven dependencies to speed up builds.
+
+      - name: Build with Maven # Step to build the project using Maven (same as above).
+        run: mvn -B package --file pom.xml # Run Maven in batch mode and package the project.
+
+      - name: Dockerize & Push Docker Image # Step to build and push the Docker image to Docker Hub.
+        uses: mr-smithers-excellent/docker-build-push@v6 # Use a third-party GitHub action to build and push the Docker image.
+        with:
+          image: noyandocker/flightsearchapi # Specify the Docker image name.
+          tags: latest # Assign the "latest" tag to the image.
+          registry: docker.io # Use Docker Hub as the registry.
+          dockerfile: Dockerfile # Specify the location of the Dockerfile (defaults to the root of the repository).
+          username: ${{ secrets.DOCKER_USERNAME }} # Retrieve the Docker Hub username from GitHub secrets.
+          password: ${{ secrets.DOCKER_PASSWORD }} # Retrieve the Docker Hub password from GitHub secrets.
