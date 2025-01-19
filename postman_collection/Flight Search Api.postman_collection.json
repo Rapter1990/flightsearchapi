@@ -1039,7 +1039,7 @@
 									"name": "Create Flight",
 									"item": [
 										{
-											"name": "Create Flight",
+											"name": "Create Flight (İstanbul - Ankara)",
 											"request": {
 												"auth": {
 													"type": "bearer",
@@ -1055,7 +1055,46 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"fromAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n  \"toAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n  \"departureTime\": \"2025-01-15T08:00:00\",\r\n  \"arrivalTime\": \"2025-01-15T11:00:00\",\r\n  \"price\": 299.99\r\n}",
+													"raw": "{\r\n  \"fromAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n  \"toAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n  \"departureTime\": \"2025-01-18T08:00:00\",\r\n  \"arrivalTime\": \"2025-01-18T11:00:00\",\r\n  \"price\": 299.99\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Flight (Ankara - İstanbul)",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"fromAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n  \"toAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n  \"departureTime\": \"2025-01-19T08:00:00\",\r\n  \"arrivalTime\": \"2025-01-19T11:00:00\",\r\n  \"price\": 299.99\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -1419,6 +1458,91 @@
 											"response": []
 										}
 									]
+								},
+								{
+									"name": "Flight Search",
+									"item": [
+										{
+											"name": "One-Way Flight Search",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"fromAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n    \"toAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n    \"departureTime\": \"2025-01-18\",\r\n    \"pagination\": {\r\n        \"pageNumber\": 1,\r\n        \"pageSize\": 5\r\n    }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/search",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														"search"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Round-Trip Flight Search",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"fromAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n    \"toAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n    \"departureTime\": \"2025-01-18\",\r\n    \"arrivalTime\": \"2025-01-19\",\r\n    \"pagination\": {\r\n        \"pageNumber\": 1,\r\n        \"pageSize\": 5\r\n    }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/search",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														"search"
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						},
@@ -1436,7 +1560,7 @@
 													"bearer": [
 														{
 															"key": "token",
-															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"value": "{{USER_ACCESS_TOKEN}}",
 															"type": "string"
 														}
 													]
@@ -1473,7 +1597,7 @@
 													"bearer": [
 														{
 															"key": "token",
-															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"value": "{{USER_ACCESS_TOKEN}}",
 															"type": "string"
 														}
 													]
@@ -1518,7 +1642,7 @@
 													"bearer": [
 														{
 															"key": "token",
-															"value": "{{ADMIN_ACCESS_TOKEN}}",
+															"value": "{{USER_ACCESS_TOKEN}}",
 															"type": "string"
 														}
 													]
@@ -1552,12 +1676,89 @@
 									]
 								},
 								{
-									"name": "New Request",
-									"request": {
-										"method": "GET",
-										"header": []
-									},
-									"response": []
+									"name": "Flight Search",
+									"item": [
+										{
+											"name": "One-Way Flight Search",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{USER_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"fromAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n    \"toAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n    \"departureTime\": \"2025-01-18\",\r\n    \"pagination\": {\r\n        \"pageNumber\": 1,\r\n        \"pageSize\": 5\r\n    }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/search",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														"search"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Round-Trip Flight Search",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{USER_ACCESS_TOKEN}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"fromAirportId\": \"bc1a0a60-3d20-47bf-b52a-5a4a8ab0aeef\",\r\n    \"toAirportId\": \"e59b8f60-781c-4ea1-89b4-5ce582ae9455\",\r\n    \"departureTime\": \"2025-01-18\",\r\n    \"arrivalTime\": \"2025-01-19\",\r\n    \"pagination\": {\r\n        \"pageNumber\": 1,\r\n        \"pageSize\": 5\r\n    }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:1133/api/v1/flights/search",
+													"host": [
+														"localhost"
+													],
+													"port": "1133",
+													"path": [
+														"api",
+														"v1",
+														"flights",
+														"search"
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						}
