@@ -21,6 +21,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * RestController for managing flights.
+ * Provides endpoints for creating, retrieving, updating, and deleting flight information.
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/flights")

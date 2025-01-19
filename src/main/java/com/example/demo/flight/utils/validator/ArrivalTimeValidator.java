@@ -1,6 +1,7 @@
 package com.example.demo.flight.utils.validator;
 
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
+import com.example.demo.flight.model.dto.request.flight.SearchFlightRequest;
 import com.example.demo.flight.model.dto.request.flight.UpdateFlightRequest;
 import com.example.demo.flight.utils.annotations.ValidArrivalTime;
 import jakarta.validation.ConstraintValidator;
@@ -36,6 +37,10 @@ public class ArrivalTimeValidator implements ConstraintValidator<ValidArrivalTim
         // Validate for UpdateFlightRequest type
         else if (value instanceof UpdateFlightRequest updateFlightRequest) {
             return isValidArrivalTime(updateFlightRequest.getArrivalTime(), updateFlightRequest.getDepartureTime());
+        }
+        // Validate for SearchFlightRequest type
+        else if (value instanceof SearchFlightRequest searchFlightRequest) {
+            return isValidArrivalTime(searchFlightRequest.getArrivalTime(), searchFlightRequest.getDepartureTime());
         }
 
         return true;  // Return true if the object type is not recognized
