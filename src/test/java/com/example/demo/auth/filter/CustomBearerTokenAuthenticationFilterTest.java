@@ -6,6 +6,8 @@ import com.example.demo.base.AbstractBaseServiceTest;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,6 +29,16 @@ class CustomBearerTokenAuthenticationFilterTest extends AbstractBaseServiceTest 
 
     @Mock
     private InvalidTokenService invalidTokenService;
+
+    @BeforeEach
+    void setup() {
+        SecurityContextHolder.clearContext();
+    }
+
+    @AfterEach
+    void tearDown() {
+        SecurityContextHolder.clearContext();
+    }
 
     @Test
     void shouldAuthenticateWithValidBearerToken() throws Exception {
