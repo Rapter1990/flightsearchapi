@@ -11,6 +11,12 @@ import java.time.format.DateTimeParseException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test class for {@link CustomLocalDateTimeDeserializer}.
+ * This class is responsible for testing the functionality of the custom deserializer
+ * for {@link LocalDateTime}. It uses {@link ObjectMapper} configured with the
+ * {@link CustomLocalDateTimeDeserializer} to verify the deserialization logic.
+ */
 class CustomLocalDateTimeDeserializerTest {
 
     private ObjectMapper objectMapper;

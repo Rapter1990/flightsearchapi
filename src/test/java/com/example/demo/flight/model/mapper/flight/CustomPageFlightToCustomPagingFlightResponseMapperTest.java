@@ -11,6 +11,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test class for {@link CustomPageFlightToCustomPagingFlightResponseMapper}.
+ * This class tests the functionality of the {@link CustomPageFlightToCustomPagingFlightResponseMapper},
+ * ensuring that paginated flight data is correctly mapped to a custom paginated response format.
+ * The tests verify that all fields, including pagination metadata and flight details, are accurately
+ * transformed from the source to the target representation.
+ */
 class CustomPageFlightToCustomPagingFlightResponseMapperTest {
 
     private final CustomPageFlightToCustomPagingFlightResponseMapper mapper =

@@ -33,6 +33,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit test class for {@link SearchFlightController}.
+ * This class tests the REST API endpoints of the {@link SearchFlightController}, ensuring that the
+ * search flight functionality works as expected. It validates the integration between the controller,
+ * the {@link SearchFlightService}, and the mapping logic provided by the
+ * {@link CustomPageFlightToCustomPagingFlightResponseMapper}.
+ */
 class SearchFlightControllerTest extends AbstractRestControllerTest {
 
     @MockitoBean

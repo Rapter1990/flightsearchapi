@@ -13,6 +13,11 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Unit test class for {@link ArrivalTimeValidator}.
+ * This test class is responsible for testing the validation logic of the {@link ArrivalTimeValidator}.
+ * It extends {@link AbstractBaseServiceTest} and uses {@link Mock} annotations to mock the necessary dependencies.
+ */
 class ArrivalTimeValidatorTest extends AbstractBaseServiceTest {
 
     private ArrivalTimeValidator arrivalTimeValidator;

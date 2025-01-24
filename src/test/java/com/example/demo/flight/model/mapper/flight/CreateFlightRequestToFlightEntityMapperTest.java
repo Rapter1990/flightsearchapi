@@ -1,7 +1,9 @@
 package com.example.demo.flight.model.mapper.flight;
 
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
+import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.model.entity.FlightEntity;
+import com.example.demo.flight.model.mapper.airport.AirportEntityToAirportMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -12,6 +14,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test class for {@link CreateFlightRequestToFlightEntityMapper}.
+ * This class tests the functionality of the {@link CreateFlightRequestToFlightEntityMapper},
+ * ensuring that {@link CreateFlightRequest} objects are correctly mapped to {@link FlightEntity} objects.
+ * The tests verify that all fields are mapped properly and that no data is lost or incorrectly transformed during the mapping process.
+ */
 class CreateFlightRequestToFlightEntityMapperTest {
 
     private final CreateFlightRequestToFlightEntityMapperImpl mapper = new CreateFlightRequestToFlightEntityMapperImpl();

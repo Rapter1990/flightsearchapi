@@ -13,6 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+/**
+ * Unit test class for {@link AirportUtilityClass}.
+ * This class tests the utility methods of {@link AirportUtilityClass}, ensuring
+ * they function as expected. It also verifies that the utility class cannot be
+ * instantiated, as it is intended to be a utility class.
+ */
 class AirportUtilityClassTest extends AbstractBaseServiceTest {
 
     @Mock

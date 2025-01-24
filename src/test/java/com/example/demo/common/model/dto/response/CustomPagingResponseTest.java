@@ -5,6 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test class for {@link CustomPagingResponse}.
+ * This class tests the functionality of the {@link CustomPagingResponse}, focusing on the behavior
+ * of the static {@code of} method. The tests ensure that the method correctly creates an instance
+ * of {@link CustomPagingResponse} with the expected values based on the provided input data.
+ */
 class CustomPagingResponseTest {
 
     @Test

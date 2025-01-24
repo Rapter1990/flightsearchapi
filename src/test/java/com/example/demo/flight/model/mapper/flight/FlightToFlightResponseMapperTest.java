@@ -13,6 +13,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test class for {@link FlightToFlightResponseMapper}.
+ * This class tests the functionality of the {@link FlightToFlightResponseMapper},
+ * ensuring that {@link Flight} objects are correctly mapped to {@link FlightResponse} objects.
+ * The tests verify that all fields are properly transformed and no data is lost or incorrectly
+ * mapped during the conversion process.
+ */
 class FlightToFlightResponseMapperTest {
 
     private final FlightToFlightResponseMapper mapper = FlightToFlightResponseMapper.initialize();
