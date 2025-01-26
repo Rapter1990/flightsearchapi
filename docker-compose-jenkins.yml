@@ -17,7 +17,14 @@ services:
     command: >
       bash -c "
       apt-get update &&
-      apt-get install -y curl docker.io git maven openjdk-21-jdk &&
+      apt-get install -y curl docker.io git maven &&
+      curl -LO https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.tar.gz &&
+      tar -xvf jdk-21_linux-x64_bin.tar.gz -C /opt &&
+      rm jdk-21_linux-x64_bin.tar.gz &&
+      update-alternatives --install /usr/bin/java /usr/bin/java /opt/jdk-21/bin/java 1 &&
+      update-alternatives --install /usr/bin/javac /usr/bin/javac /opt/jdk-21/bin/javac 1 &&
+      echo 'export JAVA_HOME=/opt/jdk-21' >> /etc/profile.d/jdk21.sh &&
+      source /etc/profile.d/jdk21.sh &&
       curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.26.0/bin/linux/amd64/kubectl &&
       chmod +x kubectl &&
       mv kubectl /usr/local/bin/ &&
