@@ -6,3 +6,7 @@ RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
 
 # Groovy script'leri için init.d dizini
 COPY init.groovy.d/ /var/jenkins_home/init.groovy.d/
+
+# Docker CLI'yı yükleyin
+USER root
+RUN apt-get update && apt-get install -y docker.io
