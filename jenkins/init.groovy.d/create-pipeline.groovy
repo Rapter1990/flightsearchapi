@@ -16,10 +16,10 @@ def definition = new CpsScmFlowDefinition(
         new GitSCM(
                 [
                         userRemoteConfigs: [[url: "https://github.com/Rapter1990/flightsearchapi.git"]],
-                        branches: [[name: "*/main"]]
+                        branches: [[name: "*/development/issue-2/implement-jenkins-for-ci-cd"]]
                 ]
         ),
-        "jenkins/Jenkinsfile"
+        "Jenkinsfile"
 )
 definition.setLightweight(true)
 pipelineJob.setDefinition(definition)
