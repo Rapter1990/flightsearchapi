@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3.8.5-jdk-11'
+            image 'maven:3.8.5-openjdk-21'
             args '-v /root/.m2:/root/.m2'
         }
     }
@@ -12,29 +12,29 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "*/${env.BRANCH_NAME}"]],
-                        userRemoteConfigs: [[url: "${env.GIT_REPO_URL}"]]
-                    ])
+            stage('Checkout') {
+                steps {
+                    script {
+                        checkout([
+                            $class: 'GitSCM',
+                            branches: [[name: "*/${env.BRANCH_NAME}"]],
+                            userRemoteConfigs: [[url: "${env.GIT_REPO_URL}"]]
+                        ])
+                    }
+                }
+            }
+
+            stage('Build') {
+                steps {
+                    sh 'mvn clean install'
                 }
             }
         }
 
-        stage('Test') {
-            steps {
-                sh 'mvn test'
+        post {
+            always {
+                cleanWs()
             }
-        }
-    }
-
-    post {
-        always {
-            junit 'target/surefire-reports/*.xml'
-            cleanWs()
         }
     }
 }
