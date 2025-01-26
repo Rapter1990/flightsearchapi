@@ -12,29 +12,28 @@ pipeline {
     }
 
     stages {
-            stage('Checkout') {
-                steps {
-                    script {
-                        checkout([
-                            $class: 'GitSCM',
-                            branches: [[name: "*/${env.BRANCH_NAME}"]],
-                            userRemoteConfigs: [[url: "${env.GIT_REPO_URL}"]]
-                        ])
-                    }
-                }
-            }
-
-            stage('Build') {
-                steps {
-                    sh 'mvn clean install'
+        stage('Checkout') {
+            steps {
+                script {
+                    checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: "*/${env.BRANCH_NAME}"]],
+                        userRemoteConfigs: [[url: "${env.GIT_REPO_URL}"]]
+                    ])
                 }
             }
         }
 
-        post {
-            always {
-                cleanWs()
+        stage('Build') {
+            steps {
+                sh 'mvn clean install'
             }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
