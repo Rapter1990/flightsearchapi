@@ -69,7 +69,9 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            sh 'docker rmi ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG} || true'
+            node {
+                sh 'docker rmi ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG} || true'
+            }
         }
         success {
             echo 'Pipeline executed successfully.'
@@ -78,5 +80,6 @@ pipeline {
             echo 'Pipeline failed.'
         }
     }
+
 
 }
