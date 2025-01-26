@@ -1,6 +1,8 @@
+import hudson.plugins.git.UserRemoteConfig
+import hudson.plugins.git.BranchSpec
+import hudson.plugins.git.GitSCM
 import jenkins.model.*
 import org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition
-import hudson.plugins.git.GitSCM
 
 def instance = Jenkins.getInstance()
 
@@ -15,9 +17,11 @@ def pipelineJob = instance.createProject(org.jenkinsci.plugins.workflow.job.Work
 def definition = new CpsScmFlowDefinition(
         new GitSCM(
                 [
-                        userRemoteConfigs: [[url: "https://github.com/Rapter1990/flightsearchapi.git"]],
-                        branches: [[name: "*/development/issue-2/implement-jenkins-for-ci-cd"]]
-                ]
+                        new UserRemoteConfig("https://github.com/Rapter1990/flightsearchapi.git", null, null, null)
+                ],
+                [new BranchSpec("*/development/issue-2/implement-jenkins-for-ci-cd")],
+                false, Collections.emptyList(),
+                null, null, Collections.emptyList()
         ),
         "Jenkinsfile"
 )
