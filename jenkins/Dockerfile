@@ -1,12 +1,12 @@
 FROM jenkins/jenkins:lts
 
-# Plugin listesi
+# Plugin list
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
 
-# Groovy script'leri için init.d dizini
+# For Groovy scripts, init.d directory
 COPY init.groovy.d/ /var/jenkins_home/init.groovy.d/
 
-# Docker CLI'yı yükleyin
+# Install Docker CLI
 USER root
 RUN apt-get update && apt-get install -y docker.io

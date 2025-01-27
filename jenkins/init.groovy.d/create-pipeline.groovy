@@ -29,4 +29,4 @@ definition.setLightweight(true)
 pipelineJob.setDefinition(definition)
 pipelineJob.save()
 
-println("Pipeline job '${jobName}' başarıyla oluşturuldu!")
+println("Pipeline job '${jobName}' has been successfully created!")
