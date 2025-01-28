@@ -11,7 +11,7 @@ services:
       - "50000:50000"  # Expose port for Jenkins agents
     volumes:
       - jenkins_home:/var/jenkins_home   # Persistent Jenkins data
-      - /var/run/docker.sock:/var/run/docker.sock # Mount Docker socket for Docker builds
+      - /var/run/docker.sock.raw:/var/run/docker.sock # Mount Docker socket for Docker builds
       - ../k8s:/var/jenkins_home/k8s # Mount Kubernetes configuration files (optional)
       - ./init.groovy.d:/var/jenkins_home/init.groovy.d # Mount Jenkins init scripts (optional)
     environment:
