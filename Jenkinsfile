@@ -25,7 +25,6 @@ pipeline {
             agent {
                     docker {
                         image 'maven:3.9.9-amazoncorretto-21-alpine'
-                        args '-v /root/.m2:/root/.m2'
                     }
                 }
             steps {
@@ -37,7 +36,6 @@ pipeline {
             agent {
                 docker {
                     image 'docker:27.5.1'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
             steps {
@@ -49,7 +47,6 @@ pipeline {
             agent {
                 docker {
                     image 'docker:27.5.1'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
             steps {
@@ -70,5 +67,5 @@ pipeline {
                         patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
                                    [pattern: '.propsfile', type: 'EXCLUDE']])
             }
-        }
+    }
 }
