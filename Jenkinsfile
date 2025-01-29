@@ -9,6 +9,8 @@ pipeline {
     environment {
         GIT_REPO_URL = 'https://github.com/Rapter1990/flightsearchapi.git'
         BRANCH_NAME = 'development/issue-2/implement-jenkins-for-ci-cd'
+        DOCKERHUB_USERNAME = 'noyandocker'
+        DOCKER_IMAGE_NAME = 'flightsearchapi-jenkins'
     }
 
     stages {
@@ -29,6 +31,21 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${env.DOCKERHUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:latest ."
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: '']) {
+                    sh "docker push ${env.DOCKERHUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:latest"
+                }
+            }
+        }
+
     }
 
     post {
