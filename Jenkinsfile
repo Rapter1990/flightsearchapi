@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.9-amazoncorretto-21-alpine'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+    agent any
 
     environment {
         GIT_REPO_URL = 'https://github.com/Rapter1990/flightsearchapi.git'
@@ -27,18 +22,36 @@ pipeline {
         }
 
         stage('Build') {
+            agent {
+                    docker {
+                        image 'maven:3.9.9-amazoncorretto-21-alpine'
+                        args '-v /root/.m2:/root/.m2'
+                    }
+                }
             steps {
                 sh 'mvn clean install'
             }
         }
 
         stage('Build Docker Image') {
+            agent {
+                docker {
+                    image 'docker:27.5.1'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
             steps {
                 sh "docker build -t ${env.DOCKERHUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:latest ."
             }
         }
 
         stage('Push Docker Image') {
+            agent {
+                docker {
+                    image 'docker:27.5.1'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
             steps {
                 withDockerRegistry([credentialsId: 'docker-hub-credentials', url: '']) {
                     sh "docker push ${env.DOCKERHUB_USERNAME}/${env.DOCKER_IMAGE_NAME}:latest"
