@@ -56,6 +56,25 @@ pipeline {
             }
         }
 
+        stage('Deploy to Minikube') {
+            agent any
+            steps {
+                script {
+                    // Start Minikube
+                    sh "minikube start"
+
+                    // Open Minikube dashboard (optional, runs in the background)
+                    sh "minikube dashboard &"
+
+                    // Apply Kubernetes configurations
+                    sh "kubectl apply -f k8s"
+
+                    // Optional: Verify deployment status
+                    sh "kubectl get pods -A"
+                }
+            }
+        }
+
     }
 
     post {
