@@ -61,7 +61,7 @@ pipeline {
             steps {
                 script {
                     // Start Minikube
-                    sh "minikube start"
+                    sh "minikube start --force"
 
                     // Open Minikube dashboard (optional, runs in the background)
                     sh "minikube dashboard &"
