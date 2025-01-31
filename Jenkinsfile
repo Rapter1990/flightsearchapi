@@ -60,8 +60,12 @@ pipeline {
             agent any
             steps {
                 script {
+
+                    // Delete Minikube
+                    sh "minikube delete"
+
                     // Start Minikube
-                    sh "minikube start --force"
+                    sh "minikube start --force --memory=6000 --cpus=4"
 
                     // Open Minikube dashboard (optional, runs in the background)
                     sh "minikube dashboard &"
