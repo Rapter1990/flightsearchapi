@@ -65,7 +65,7 @@ pipeline {
                     sh "minikube delete"
 
                     // Start Minikube
-                    sh "minikube start --force --memory=6000 --cpus=4"
+                    sh "minikube start --force --memory=6000 --cpus=4 --timeout=10m"
 
                     // Open Minikube dashboard (optional, runs in the background)
                     sh "minikube dashboard &"
