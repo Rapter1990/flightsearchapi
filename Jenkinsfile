@@ -76,16 +76,16 @@ pipeline {
                     fi
 
                     echo 'Checking if Kind cluster exists...'
-                    if ! kind get clusters | grep -q '${env.KIND_CLUSTER_NAME}'; then
+                    if ! kind get clusters | grep -q "${env.KIND_CLUSTER_NAME}"; then
                         echo 'Creating Kind Cluster...'
-                        kind create cluster --name ${env.KIND_CLUSTER_NAME}
+                        kind create cluster --name "${env.KIND_CLUSTER_NAME}"
                     else
                         echo 'Kind cluster already exists.'
                     fi
 
                     echo 'Setting up kubeconfig...'
-                    export KUBECONFIG="$(kind get kubeconfig-path --name=${env.KIND_CLUSTER_NAME})"
-                    kind export kubeconfig --name=${env.KIND_CLUSTER_NAME}
+                    export KUBECONFIG="\$(kind get kubeconfig-path --name="${env.KIND_CLUSTER_NAME}")"
+                    kind export kubeconfig --name="${env.KIND_CLUSTER_NAME}"
 
                     echo 'Verifying cluster connectivity...'
                     kubectl cluster-info || exit 1
