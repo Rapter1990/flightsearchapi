@@ -95,7 +95,6 @@ pipeline {
 
                     echo 'Listing nodes...'
                     kubectl get nodes || echo 'Failed to list nodes'
-
                     """
                 }
             }

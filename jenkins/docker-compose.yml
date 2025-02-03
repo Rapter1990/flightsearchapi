@@ -17,6 +17,12 @@ services:
     environment:
       JAVA_OPTS: "-Djenkins.install.runSetupWizard=false" # Skip setup wizard (optional)
     user: root # Run as root to allow installing dependencies
+    networks:
+      - common-network
 
 volumes:
   jenkins_home:
+
+networks:
+  common-network:
+    driver: bridge
