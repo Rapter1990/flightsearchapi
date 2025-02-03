@@ -77,10 +77,17 @@ pipeline {
 
                     echo 'Creating Kind Cluster...'
                     kind create cluster --name ${env.KIND_CLUSTER_NAME} || echo 'Cluster already exists'
+
+                    echo 'Setting up kubeconfig...'
+                    export KUBECONFIG="\$(kind get kubeconfig-path --name=${env.KIND_CLUSTER_NAME})"
+                    kind export kubeconfig --name=${env.KIND_CLUSTER_NAME}
+
+                    kubectl cluster-info
                     """
                 }
             }
         }
+
 
         stage('Deploy to Kind') {
             steps {
