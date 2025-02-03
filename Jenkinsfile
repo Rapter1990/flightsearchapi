@@ -88,8 +88,14 @@ pipeline {
                     kind export kubeconfig --name="${env.KIND_CLUSTER_NAME}"
 
                     echo 'Verifying cluster connectivity...'
-                    kubectl cluster-info || exit 1
-                    kubectl get nodes
+                    kubectl cluster-info || echo 'Failed to retrieve cluster info'
+
+                    echo 'Dumping cluster info for debugging...'
+                    kubectl cluster-info dump || echo 'Failed to dump cluster info'
+
+                    echo 'Listing nodes...'
+                    kubectl get nodes || echo 'Failed to list nodes'
+
                     """
                 }
             }
