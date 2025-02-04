@@ -12,11 +12,23 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home   # Persistent Jenkins data
       - /var/run/docker.sock.raw:/var/run/docker.sock # Mount Docker socket for Docker builds
+      - ~/.minikube:/.minikube  # Kubeconfig
+      - ~/.kube:/.kube  # Kubeconfig
       - ../k8s:/var/jenkins_home/k8s # Mount Kubernetes configuration files (optional)
       - ./init.groovy.d:/var/jenkins_home/init.groovy.d # Mount Jenkins init scripts (optional)
     environment:
       JAVA_OPTS: "-Djenkins.install.runSetupWizard=false" # Skip setup wizard (optional)
+      DOCKER_HOST: "unix:///var/run/docker.sock"
     user: root # Run as root to allow installing dependencies
+    privileged: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway" #buna bi bakabiliriz ihtiyaç kalmayabilir.
+    networks:
+      - minikube  # Minikube ile aynı network
 
 volumes:
   jenkins_home:
+
+networks:
+  minikube:
+    external: true
