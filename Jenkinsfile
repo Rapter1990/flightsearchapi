@@ -6,7 +6,6 @@ pipeline {
         BRANCH_NAME = 'development/issue-2/implement-jenkins-for-ci-cd'
         DOCKERHUB_USERNAME = 'noyandocker'
         DOCKER_IMAGE_NAME = 'flightsearchapi-jenkins'
-        KIND_CLUSTER_NAME = 'jenkins-cluster'
     }
 
     stages {
@@ -57,61 +56,17 @@ pipeline {
             }
         }
 
-        stage('Setup Kind Cluster') {
+        stage('Deploy to Minikube') {
             steps {
                 script {
                     sh """
-                    if ! command -v kind &> /dev/null; then
-                        echo 'Installing Kind...'
-                        curl -Lo ./kind https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64
-                        chmod +x ./kind
-                        mv ./kind /usr/local/bin/kind
-                    fi
-
-                    if ! command -v kubectl &> /dev/null; then
-                        echo 'Installing kubectl...'
-                        curl -LO "https://dl.k8s.io/release/v1.28.0/bin/linux/amd64/kubectl"
-                        chmod +x kubectl
-                        mv kubectl /usr/local/bin/kubectl
-                    fi
-
-                    echo 'Checking if Kind cluster exists...'
-                    if ! kind get clusters | grep -q "${env.KIND_CLUSTER_NAME}"; then
-                        echo 'Creating Kind Cluster...'
-                        kind create cluster --name "${env.KIND_CLUSTER_NAME}"
-                    else
-                        echo 'Kind cluster already exists.'
-                    fi
-
-                    echo 'Setting up kubeconfig...'
-                    export KUBECONFIG="\$(kind get kubeconfig-path --name="${env.KIND_CLUSTER_NAME}")"
-                    kind export kubeconfig --name="${env.KIND_CLUSTER_NAME}"
-
-                    echo 'Verifying cluster connectivity...'
-                    kubectl cluster-info || echo 'Failed to retrieve cluster info'
-
-                    echo 'Dumping cluster info for debugging...'
-                    kubectl cluster-info dump || echo 'Failed to dump cluster info'
-
-                    echo 'Listing nodes...'
-                    kubectl get nodes || echo 'Failed to list nodes'
+                        export KUBECONFIG="/.kube/config"
+                        kubectl config view
+                        kubectl apply -f /var/jenkins_home/k8s
                     """
                 }
             }
         }
-
-        stage('Deploy to Kind') {
-            steps {
-                script {
-                    sh """
-                    echo 'Applying Kubernetes manifests...'
-                    kubectl apply -f k8s
-                    """
-                }
-            }
-        }
-
-
 
     }
 
