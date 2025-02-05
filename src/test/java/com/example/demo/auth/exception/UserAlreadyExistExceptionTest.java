@@ -2,7 +2,7 @@ package com.example.demo.auth.exception;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for verifying the behavior of the {@link UserAlreadyExistException}.

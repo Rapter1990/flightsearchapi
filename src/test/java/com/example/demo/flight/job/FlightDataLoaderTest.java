@@ -11,9 +11,14 @@ import org.mockito.Mock;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit test for {@link FlightDataLoader}.
+ * This test verifies that the dummy flight data is properly loaded
+ * and that interactions with the {@link FlightRepository} and {@link AirportRepository}
+ * occur as expected.
+ */
 class FlightDataLoaderTest extends AbstractBaseServiceTest {
 
     @InjectMocks

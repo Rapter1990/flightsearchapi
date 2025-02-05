@@ -1,9 +1,7 @@
 package com.example.demo.flight.model.mapper.flight;
 
 import com.example.demo.flight.model.dto.request.flight.CreateFlightRequest;
-import com.example.demo.flight.model.entity.AirportEntity;
 import com.example.demo.flight.model.entity.FlightEntity;
-import com.example.demo.flight.model.mapper.airport.AirportEntityToAirportMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
