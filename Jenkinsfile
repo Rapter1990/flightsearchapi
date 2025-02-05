@@ -56,18 +56,6 @@ pipeline {
             }
         }
 
-        stage('Deploy to Minikube') {
-            steps {
-                script {
-                    sh """
-                        export KUBECONFIG="/.kube/config"
-                        kubectl config view
-                        kubectl apply -f /var/jenkins_home/k8s
-                    """
-                }
-            }
-        }
-
     }
 
     post {
