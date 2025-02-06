@@ -412,6 +412,7 @@ https://hub.docker.com/repository/docker/noyandocker/flightsearchapi-jenkins/gen
 - Open Jenkins in the browser via `localhost:8080`
 - Go to pipeline named `flightsearchapi`
 - Run Pipeline
+- Show `Pipeline Step` to verify if it succeeded or failed
 
 
 ### Screenshots
@@ -459,9 +460,15 @@ https://hub.docker.com/repository/docker/noyandocker/flightsearchapi-jenkins/gen
     <p> Figure 20 </p>
     <img src ="screenshots/minikube_grafana_4.PNG">
     <p> Figure 21 </p>
-    <img src ="screenshots/">
+    <img src ="screenshots/jenkins_crediential_docker_1.PNG">
     <p> Figure 22 </p>
-    <img src ="screenshots/">
+    <img src ="screenshots/jenkins_crediential_docker_2.PNG">
+    <p> Figure 23 </p>
+    <img src ="screenshots/jenkins_crediential_docker_3.PNG">
+    <p> Figure 24 </p>
+    <img src ="screenshots/jenkins_pipeline_1.PNG">
+    <p> Figure 25 </p>
+    <img src ="screenshots/jenkins_pipeline_2.PNG">
 </details>
 
 
