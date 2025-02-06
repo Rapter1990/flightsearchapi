@@ -172,7 +172,7 @@ class FlightControllerTest extends AbstractRestControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.httpStatus").value("BAD_REQUEST"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.isSuccess").value(false))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Validation failed"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.subErrors[0].message").value("Arrival time cannot be earlier than departure time!"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.subErrors[0].message").value("Arrival time must be the same as or later than departure time!"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.subErrors[0].field").value("createFlightRequest"));
 
         // Verify

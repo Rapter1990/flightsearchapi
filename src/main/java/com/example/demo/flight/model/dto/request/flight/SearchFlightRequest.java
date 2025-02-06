@@ -40,7 +40,6 @@ public class SearchFlightRequest extends CustomPagingRequest {
     private LocalDateTime departureTime;
 
     @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
-    @Future(message = "Arrival time must be a future date.")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime arrivalTime; // Nullable for one-way flights
 
