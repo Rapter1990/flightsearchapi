@@ -442,32 +442,30 @@ https://hub.docker.com/repository/docker/noyandocker/flightsearchapi-jenkins/gen
     <p> Figure 11 </p>
     <img src ="screenshots/docker_grafana_6.PNG">
     <p> Figure 12 </p>
-    <img src ="screenshots/docker_grafana_6.PNG">
-    <p> Figure 13 </p>
     <img src ="screenshots/minikube_1.PNG">
-    <p> Figure 14 </p>
+    <p> Figure 13 </p>
     <img src ="screenshots/minikube_2.PNG">
-    <p> Figure 15 </p>
+    <p> Figure 14 </p>
     <img src ="screenshots/minikube_3.PNG">
-    <p> Figure 16 </p>
+    <p> Figure 15 </p>
     <img src ="screenshots/minikube_prometheus.PNG">
-    <p> Figure 17 </p>
+    <p> Figure 16 </p>
     <img src ="screenshots/minikube_grafana_1.PNG">
-    <p> Figure 18 </p>
+    <p> Figure 17 </p>
     <img src ="screenshots/minikube_grafana_2.PNG">
-    <p> Figure 19 </p>
+    <p> Figure 18 </p>
     <img src ="screenshots/minikube_grafana_3.PNG">
-    <p> Figure 20 </p>
+    <p> Figure 19 </p>
     <img src ="screenshots/minikube_grafana_4.PNG">
+    <p> Figure 20 </p>
+    <img src ="screenshots/jenkins_credential_docker_1.PNG">
     <p> Figure 21 </p>
-    <img src ="screenshots/jenkins_crediential_docker_1.PNG">
+    <img src ="screenshots/jenkins_credential_docker_2.PNG">
     <p> Figure 22 </p>
-    <img src ="screenshots/jenkins_crediential_docker_2.PNG">
+    <img src ="screenshots/jenkins_credential_docker_3.PNG">
     <p> Figure 23 </p>
-    <img src ="screenshots/jenkins_crediential_docker_3.PNG">
-    <p> Figure 24 </p>
     <img src ="screenshots/jenkins_pipeline_1.PNG">
-    <p> Figure 25 </p>
+    <p> Figure 24 </p>
     <img src ="screenshots/jenkins_pipeline_2.PNG">
 </details>
 
