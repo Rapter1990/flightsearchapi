@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GIT_REPO_URL = 'https://github.com/Rapter1990/flightsearchapi.git'
-        BRANCH_NAME = 'development/issue-2/implement-jenkins-for-ci-cd'
+        BRANCH_NAME = 'main'
         DOCKERHUB_USERNAME = 'noyandocker'
         DOCKER_IMAGE_NAME = 'flightsearchapi-jenkins'
     }
