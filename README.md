@@ -1,7 +1,7 @@
 # Case Study - Flight Search Api 
 
 <p align="center">
-    <img src="screenshots/main_screenshot.png" alt="Main Information" width="800" height="500">
+    <img src="screenshots/main_screenshot.png" alt="Main Information" width="800" height="700">
 </p>
 
 ### 📖 Information
@@ -13,93 +13,93 @@
     includes advanced logging and security features.
   </li>
   <li>
-    User Authentication:
+    <b>User Authentication:</b>
     <ul>
       <li>
-        User Registration: Register users with an email and password.
+        <b>User Registration:</b> Register users with an email and password.
       </li>
       <li>
-        User Login: Authenticate users with email and password, generating
+        <b>User Login:</b> Authenticate users with email and password, generating
         access and refresh tokens.
       </li>
       <li>
-        Token Refresh: Refresh expired access tokens using refresh tokens.
+        <b>Token Refresh:</b> Refresh expired access tokens using refresh tokens.
       </li>
-      <li>User Logout: Invalidate tokens to log users out.</li>
+      <li><b>User Logout:</b> Invalidate tokens to log users out.</li>
     </ul>
   </li>
   <li>
-    Airport Management:
+    <b>Airport Management:</b>
     <ul>
       <li>
-        Create Airports: Accessible only to <i>ADMIN</i> users.
+        <b>Create Airports:</b> Accessible only to <i>ADMIN</i> users.
       </li>
       <li>
-        Retrieve Airports: Paginated airport list retrieval, accessible to both
+        <b>Retrieve Airports:</b> Paginated airport list retrieval, accessible to both
         <i>ADMIN</i> and <i>USER</i> roles.
       </li>
       <li>
-        Retrieve Specific Airport: Search by airport ID, accessible to both
+        <b>Retrieve Specific Airport:</b> Search by airport ID, accessible to both
         <i>ADMIN</i> and <i>USER</i> roles.
       </li>
       <li>
-        Update Airports: Modify an existing airport by ID, accessible only to
+        <b>Update Airports:</b> Modify an existing airport by ID, accessible only to
         <i>ADMIN</i> users.
       </li>
       <li>
-        Delete Airports: Remove airports by ID, accessible only to <i>ADMIN</i>
+        <b>Delete Airports:</b> Remove airports by ID, accessible only to <i>ADMIN</i>
         users.
       </li>
     </ul>
   </li>
   <li>
-    Flight Management:
+    <b>Flight Management:</b>
     <ul>
       <li>
-        Create Flights: Accessible only to <i>ADMIN</i> users.
+        <b>Create Flights:</b> Accessible only to <i>ADMIN</i> users.
       </li>
       <li>
-        Retrieve Flights: Paginated flight list retrieval, accessible to both
+        <b>Retrieve Flights:</b> Paginated flight list retrieval, accessible to both
         <i>ADMIN</i> and <i>USER</i> roles.
       </li>
       <li>
-        Retrieve Specific Flight: Search by flight ID, accessible to both
+        <b>Retrieve Specific Flight:</b> Search by flight ID, accessible to both
         <i>ADMIN</i> and <i>USER</i> roles.
       </li>
       <li>
-        Update Flights: Modify an existing flight by ID, accessible only to
+        <b>Update Flights:</b> Modify an existing flight by ID, accessible only to
         <i>ADMIN</i> users.
       </li>
       <li>
-        Delete Flights: Remove flights by ID, accessible only to <i>ADMIN</i>
+        <b>Delete Flights:</b> Remove flights by ID, accessible only to <i>ADMIN</i>
         users.
       </li>
     </ul>
   </li>
   <li>
-    Flight Search:
+    <b>Flight Search:</b>
     <ul>
       <li>
-        Search Flights: Search for flights based on departure, arrival airports,
+        <b>Search Flights:</b> Search for flights based on departure, arrival airports,
         and departure date. Accessible to both <i>ADMIN</i> and <i>USER</i>
         roles. (One Way - Round-Trip)
       </li>
     </ul>
   </li>
   <li>
-    Security:
+    <b>Security:</b>
     <ul>
       <li>
-        User Roles: ADMIN and USER roles implemented using Spring Security.
+        <b>User Roles:</b> ADMIN and USER roles implemented using Spring Security.
       </li>
-      <li>JWT Authentication: Secure endpoints with JSON Web Tokens.</li>
+      <li><b>JWT Authentication:</b> Secure endpoints with JSON Web Tokens.</li>
     </ul>
   </li>
   <li>
-    Logging:
+    <b>Logging:</b>
     <ul>
       <li>
-        Custom Logging Aspect: Logs details of REST controller method calls and
+        <b>Custom Logging Aspect:</b> Logs details of REST controller method calls and
         exceptions, including HTTP request and response details.
       </li>
     </ul>
