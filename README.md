@@ -419,7 +419,9 @@ https://hub.docker.com/repository/docker/noyandocker/flightsearchapi-jenkins/gen
 <details>
 <summary>Click here to show the screenshots of project</summary>
     <p> Figure 1 </p>
-    <img src ="screenshots/test_coverage.PNG">
+    <img src ="screenshots/postman_1.PNG">
+    <p> Figure 2 </p>
+    <img src ="screenshots/postman_2.PNG">
 </details>
 
 
