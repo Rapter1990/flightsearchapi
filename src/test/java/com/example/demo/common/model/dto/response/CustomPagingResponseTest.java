@@ -3,7 +3,7 @@ package com.example.demo.common.model.dto.response;
 import com.example.demo.common.model.CustomPage;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Unit test class for {@link CustomPagingResponse}.
