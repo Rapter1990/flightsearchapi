@@ -1,7 +1,7 @@
 # Case Study - Flight Search Api 
 
 <p align="center">
-    <img src="screenshots/mainimage.png" alt="Main Information" width="800" height="500">
+    <img src="screenshots/main_screenshot.png" alt="Main Information" width="800" height="500">
 </p>
 
 ### 📖 Information
