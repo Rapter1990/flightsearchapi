@@ -448,6 +448,20 @@ https://hub.docker.com/repository/docker/noyandocker/flightsearchapi-jenkins/gen
     <img src ="screenshots/minikube_2.PNG">
     <p> Figure 15 </p>
     <img src ="screenshots/minikube_3.PNG">
+    <p> Figure 16 </p>
+    <img src ="screenshots/minikube_prometheus.PNG">
+    <p> Figure 17 </p>
+    <img src ="screenshots/minikube_grafana_1.PNG">
+    <p> Figure 18 </p>
+    <img src ="screenshots/minikube_grafana_2.PNG">
+    <p> Figure 19 </p>
+    <img src ="screenshots/minikube_grafana_3.PNG">
+    <p> Figure 20 </p>
+    <img src ="screenshots/minikube_grafana_4.PNG">
+    <p> Figure 21 </p>
+    <img src ="screenshots/">
+    <p> Figure 22 </p>
+    <img src ="screenshots/">
 </details>
 
 
