@@ -422,6 +422,24 @@ https://hub.docker.com/repository/docker/noyandocker/flightsearchapi-jenkins/gen
     <img src ="screenshots/postman_1.PNG">
     <p> Figure 2 </p>
     <img src ="screenshots/postman_2.PNG">
+    <p> Figure 3 </p>
+    <img src ="screenshots/jacoco_report.PNG">
+    <p> Figure 4 </p>
+    <img src ="screenshots/docker_result.PNG">
+    <p> Figure 5 </p>
+    <img src ="screenshots/docker_prometheus.PNG">
+    <p> Figure 6 </p>
+    <img src ="screenshots/docker_grafana_1.PNG">
+    <p> Figure 7 </p>
+    <img src ="screenshots/docker_grafana_2.PNG">
+    <p> Figure 8 </p>
+    <img src ="screenshots/docker_grafana_3.PNG">
+    <p> Figure 9 </p>
+    <img src ="screenshots/docker_grafana_4.PNG">
+    <p> Figure 10 </p>
+    <img src ="screenshots/docker_grafana_5.PNG">
+    <p> Figure 11 </p>
+    <img src ="screenshots/docker_grafana_6.PNG">
 </details>
 
 
