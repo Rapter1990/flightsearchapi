@@ -440,6 +440,14 @@ https://hub.docker.com/repository/docker/noyandocker/flightsearchapi-jenkins/gen
     <img src ="screenshots/docker_grafana_5.PNG">
     <p> Figure 11 </p>
     <img src ="screenshots/docker_grafana_6.PNG">
+    <p> Figure 12 </p>
+    <img src ="screenshots/docker_grafana_6.PNG">
+    <p> Figure 13 </p>
+    <img src ="screenshots/minikube_1.PNG">
+    <p> Figure 14 </p>
+    <img src ="screenshots/minikube_2.PNG">
+    <p> Figure 15 </p>
+    <img src ="screenshots/minikube_3.PNG">
 </details>
 
 
