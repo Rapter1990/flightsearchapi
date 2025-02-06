@@ -5,7 +5,6 @@ import com.example.demo.flight.utils.CustomLocalDateTimeDeserializer;
 import com.example.demo.flight.utils.annotations.ValidArrivalTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,7 +39,6 @@ public class SearchFlightRequest extends CustomPagingRequest {
     private LocalDateTime departureTime;
 
     @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
-    @Future(message = "Arrival time must be a future date.")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime arrivalTime; // Nullable for one-way flights
 

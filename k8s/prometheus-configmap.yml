@@ -27,4 +27,4 @@ data:
         static_configs:
           - targets: ['flightsearchapi-service.default.svc.cluster.local:1133']
             labels:
-              application: 'Flight SSearch Api'
+              application: 'Flight Search Api'

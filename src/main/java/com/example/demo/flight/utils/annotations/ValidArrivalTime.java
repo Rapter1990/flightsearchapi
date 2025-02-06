@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = ArrivalTimeValidator.class)
 public @interface ValidArrivalTime {
-    String message() default "Arrival time cannot be earlier than departure time!";
+    String message() default "Arrival time must be the same as or later than departure time!";
 
     Class<?>[] groups() default {};
 
