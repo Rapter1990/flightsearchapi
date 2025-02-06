@@ -19,7 +19,7 @@ def definition = new CpsScmFlowDefinition(
                 [
                         new UserRemoteConfig("https://github.com/Rapter1990/flightsearchapi.git", null, null, null)
                 ],
-                [new BranchSpec("*/development/issue-2/implement-jenkins-for-ci-cd")],
+                [new BranchSpec("*/main")],
                 false, Collections.emptyList(),
                 null, null, Collections.emptyList()
         ),

@@ -407,6 +407,12 @@ https://hub.docker.com/repository/docker/noyandocker/flightsearchapi-jenkins/gen
 
 ### Jenkins
 
+- Go to `jenkins` folder
+- Run `docker-compose up -d`
+- Open Jenkins in the browser via `localhost:8080`
+- Go to pipeline named `flightsearchapi`
+- Run Pipeline
+
 
 ### Screenshots
 
